@@ -66,3 +66,146 @@
     </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CD Experience</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .cd-cover, .cd-view, .lyrics-view {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        img, video {
+            width: 300px;
+            height: auto;
+            cursor: pointer;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ffcc00;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .player {
+            margin-top: 20px;
+        }
+        .song-list {
+            list-style: none;
+            padding: 0;
+        }
+        .song-list li {
+            cursor: pointer;
+            padding: 5px;
+        }
+        .song-list li:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="cdCover" class="cd-cover active">
+            <img src="cover.jpg" alt="CD Cover" onclick="showCDView()">
+        </div>
+        <div id="cdView" class="cd-view">
+            <img src="cover.jpg" alt="CD Cover">
+            <video src="cd-rotating.mp4" autoplay loop></video>
+            <img src="back.jpg" alt="CD Back">
+            <button class="button" onclick="startListening()">Start listening + lyrics!</button>
+        </div>
+        <div id="lyricsView" class="lyrics-view">
+            <video src="cd-rotating.mp4" autoplay loop></video>
+            <ul class="song-list" id="songList"></ul>
+            <audio id="audioPlayer" controls>
+                <source id="audioSource" src="" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="player">
+                <button onclick="prevSong()">⏮️</button>
+                <button onclick="togglePlay()">▶️/⏸️</button>
+                <button onclick="nextSong()">⏭️</button>
+            </div>
+            <p id="currentSong">Select a song</p>
+        </div>
+    </div>
+    <script>
+        let songs = [
+            { title: "Song 1", file: "song1.mp3" },
+            { title: "Song 2", file: "song2.mp3" },
+            { title: "Song 3", file: "song3.mp3" }
+        ];
+        let currentSongIndex = 0;
+        const audioPlayer = document.getElementById("audioPlayer");
+        const audioSource = document.getElementById("audioSource");
+        const songList = document.getElementById("songList");
+        const currentSongText = document.getElementById("currentSong");
+
+        function loadSongs() {
+            songList.innerHTML = "";
+            songs.forEach((song, index) => {
+                let li = document.createElement("li");
+                li.textContent = song.title;
+                li.onclick = () => playSong(index);
+                songList.appendChild(li);
+            });
+        }
+
+        function playSong(index) {
+            currentSongIndex = index;
+            audioSource.src = songs[index].file;
+            audioPlayer.load();
+            audioPlayer.play();
+            currentSongText.textContent = songs[index].title;
+        }
+
+        function togglePlay() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause();
+            }
+        }
+
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            playSong(currentSongIndex);
+        }
+
+        function prevSong() {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            playSong(currentSongIndex);
+        }
+
+        function showCDView() {
+            document.getElementById('cdCover').classList.remove('active');
+            document.getElementById('cdView').classList.add('active');
+        }
+
+        function startListening() {
+            document.getElementById('cdView').classList.remove('active');
+            document.getElementById('lyricsView').classList.add('active');
+            loadSongs();
+        }
+    </script>
+</body>
+</html>
+
