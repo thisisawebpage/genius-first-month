@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CD Experience</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .cd-cover, .cd-view, .lyrics-view {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        img, video {
+            width: 300px;
+            height: auto;
+            cursor: pointer;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ffcc00;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="cdCover" class="cd-cover active">
+            <img src="cover.jpg" alt="CD Cover" onclick="showCDView()">
+        </div>
+        <div id="cdView" class="cd-view">
+            <img src="cover.jpg" alt="CD Cover">
+            <video src="cd-rotating.mp4" autoplay loop></video>
+            <img src="back.jpg" alt="CD Back">
+            <button class="button" onclick="startListening()">Start listening + lyrics!</button>
+        </div>
+        <div id="lyricsView" class="lyrics-view">
+            <video src="cd-rotating.mp4" autoplay loop></video>
+            <p>Here will be the lyrics...</p>
+        </div>
+    </div>
+    <script>
+        function showCDView() {
+            document.getElementById('cdCover').classList.remove('active');
+            document.getElementById('cdView').classList.add('active');
+        }
+        function startListening() {
+            document.getElementById('cdView').classList.remove('active');
+            document.getElementById('lyricsView').classList.add('active');
+        }
+    </script>
+</body>
+</html>
