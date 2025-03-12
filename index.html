@@ -68,15 +68,24 @@
             flex-direction: column;
             align-items: center;
         }
+        .annotated {
+            background-color: yellow;
+            cursor: pointer;
+        }
+        #annotation-box {
+            position: absolute;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 5px;
+            display: none;
+            max-width: 300px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <div class="lyrics-container">
-        <h2 id="song-title"></h2>
-        <p id="lyrics-content"></p>
-    </div>
-
-    <div id="annotation-box" class="annotation-box"></div>
+    <div id="annotation-box"></div>
 
     <div class="container">
         <div id="cdCover" class="cd-cover active">
@@ -84,7 +93,6 @@
         </div>
         <div id="cdView" class="cd-view">
             <img src="covernew.jpg" alt="CD Cover">
-            <!-- Asegúrate de que la ruta del video sea correcta -->
             <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
             <img src="backnew.jpg" alt="CD Back">
         </div>
@@ -106,96 +114,84 @@
     </div>
 
     <script>
-        let songs = [
-            { title: "margaret by lana del rey ft bleachers", file: "song1.mp3", lyrics: "Lyrics of song 1" },
-            { title: "my love mine all mine by mitski", file: "song2.mp3", lyrics: "Lyrics of song 2" },
-            { title: "love. by wave to earth", file: "song3.mp3", lyrics: "Lyrics of song 3" },
-            { title: "endlessly by kali uchis", file: "song4.mp3", lyrics: "Lyrics of song 4" },
-            { title: "in a week by hozier ft karen cowley", file: "song5.mp3", lyrics: "Lyrics of song 5" },
-            { title: "to be alone with you by sufjan stevens", file: "song6.mp3", lyrics: "Lyrics of song 6" },
-            { title: "wasteland, baby! by hozier", file: "song7.mp3", lyrics: "Lyrics of song 7" },
-            { title: "sweet marie by the walters", file: "song8.mp3", lyrics: "Lyrics of song 8" },
-            { title: "falling in love by cigarettes after sex", file: "song9.mp3", lyrics: "Lyrics of song 9" },
-            { title: "watch you sleep. by girl in red", file: "song10.mp3", lyrics: "Lyrics of song 10" }
+        // Cargar las canciones y las letras
+        const songs = [
+            {
+                title: "margaret by lana del rey ft bleachers",
+                file: "song1.mp3",
+                lyrics: `
+                    This is a simple song, gonna write it for a friend
+                    My shirt is inside out, I'm messy with the pen
+                    He met Margaret on a rooftop, she was wearin' white
+                    <span class="annotated" data-note="un ratito de hablar de lo que resultó ser mi drama favorito y ya estaba dudando de lo que podríamos ser. un día entero hablando con vos y ya nos veía exactamente donde estamos ahora, todos los días cuestionaba si saltar del edificio o esperar una señal">And he was like, 'I might be in trouble'</span>
+                    <span class="annotated" data-note="el amor existe por y para nosotros">'Cause, baby, if your love is in trouble</span>
+                    <span class="annotated" data-note="estábamos(estamos) tan enganchados tan rápido que para justificarnos a nosotros mismos y nuestras emociones descomunales y gigantes nos repetíamos esto todos los días <3 en chiste pero no en chiste">When you know, you know</span>
+                    When you're good as gold
+                    <span class="annotated" data-note="contándole a mis amigos ohh conocí a alguien y tal vez... me hablo con uno pero... hablo cada vez más con gami y quizás... pero desvergonzadamente admitiendo que estaba enamorado de vos a dos semanas de conocerte <3">Word to all my friends</span>
+                    <span class="annotated" data-note="el amor existe por y para nosotros">'Cause, baby, if your love is in trouble</span>
+                    'Cause when you know, you know
+                `
+            }
         ];
-        let currentSongIndex = 0;
-        const audioPlayer = document.getElementById("audioPlayer");
-        const audioSource = document.getElementById("audioSource");
-        const songList = document.getElementById("songList");
-        const currentSongText = document.getElementById("currentSong");
-        const cdCover = document.getElementById("cdCover");
-        const cdView = document.getElementById("cdView");
-        const lyricsView = document.getElementById("lyricsView");
 
-        function showCDView() {
-            cdCover.classList.remove("active");
-            cdView.classList.add("active");
-        }
+        // Función para mostrar la letra de la canción y las anotaciones
+        function showLyrics(songIndex) {
+            const song = songs[songIndex];
+            const lyricsContent = document.getElementById('lyrics-content');
+            const annotationBox = document.getElementById('annotation-box');
+            
+            // Mostrar la letra con las anotaciones
+            lyricsContent.innerHTML = song.lyrics;
 
-        function startListening() {
-            cdView.classList.remove("active");
-            lyricsView.classList.add("active");
-            loadSongList();
-        }
-
-        function loadSongList() {
-            songList.innerHTML = "";
-            songs.forEach((song, index) => {
-                const songItem = document.createElement("li");
-                songItem.textContent = song.title;
-                songItem.onclick = function () {
-                    playSong(index);
-                };
-                songList.appendChild(songItem);
+            // Mostrar las anotaciones al hacer clic en la línea
+            const annotatedElements = document.querySelectorAll('.annotated');
+            annotatedElements.forEach(element => {
+                element.addEventListener('click', function () {
+                    const note = element.getAttribute('data-note');
+                    annotationBox.innerHTML = note;
+                    annotationBox.style.display = 'block';
+                    annotationBox.style.left = `${element.getBoundingClientRect().left}px`;
+                    annotationBox.style.top = `${element.getBoundingClientRect().top + element.offsetHeight}px`;
+                });
             });
         }
 
-        function playSong(index) {
-            currentSongIndex = index;
-            audioSource.src = songs[index].file;
+        // Función para comenzar a escuchar
+        function startListening() {
+            const songList = document.getElementById('songList');
+            songs.forEach((song, index) => {
+                const li = document.createElement('li');
+                li.innerText = song.title;
+                li.addEventListener('click', function () {
+                    showLyrics(index);
+                });
+                songList.appendChild(li);
+            });
+        }
+
+        // Función para manejar la reproducción de la música
+        function playSong(songIndex) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const song = songs[songIndex];
+            const audioSource = document.getElementById('audioSource');
+            audioSource.src = song.file;
             audioPlayer.load();
             audioPlayer.play();
-            currentSongText.textContent = songs[index].title;
-
-            fetch("lyrics.json")
-                .then(response => response.json())
-                .then(data => {
-                    const songData = data.songs.find(song => song.title === songs[index].title);
-                    if (!songData) {
-                        console.error("Letra no encontrada para esta canción");
-                        return;
-                    }
-                    document.getElementById("song-title").textContent = songData.title;
-                    const lyricsContainer = document.getElementById("lyrics-content");
-                    lyricsContainer.innerHTML = "";
-                    
-                    const annotationBox = document.getElementById("annotation-box");
-
-                    songData.lyrics.forEach(lineData => {
-                        let lineElement = document.createElement("span");
-                        if (lineData.annotation) {
-                            lineElement.classList.add("annotated");
-                            lineElement.dataset.note = lineData.annotation;
-                        }
-                        lineElement.textContent = lineData.line;
-                        lyricsContainer.appendChild(lineElement);
-                        lyricsContainer.appendChild(document.createElement("br"));
-                        lyricsContainer.appendChild(document.createElement("br"));
-                    });
-
-                    document.addEventListener("click", function (event) {
-                        if (event.target.classList.contains("annotated")) {
-                            annotationBox.textContent = event.target.dataset.note;
-                            annotationBox.style.display = "block";
-                            annotationBox.style.left = event.pageX + "px";
-                            annotationBox.style.top = event.pageY + "px";
-                        } else {
-                            annotationBox.style.display = "none";
-                        }
-                    });
-                })
-                .catch(error => console.error("Error cargando las letras:", error));
         }
+        
+        // Mostrar la vista de la CD
+        function showCDView() {
+            document.getElementById('cdCover').classList.remove('active');
+            document.getElementById('cdView').classList.add('active');
+        }
+        
+        // Mostrar/ocultar el cuadro de anotación
+        document.addEventListener('click', function (event) {
+            if (!event.target.classList.contains('annotated')) {
+                document.getElementById('annotation-box').style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
+
