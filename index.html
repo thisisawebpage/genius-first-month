@@ -71,6 +71,13 @@
     </style>
 </head>
 <body>
+    <div class="lyrics-container">
+    <h2 id="song-title"></h2>
+    <p id="lyrics-content"></p>
+</div>
+
+<div id="annotation-box" class="annotation-box"></div>
+
     <div class="container">
         <div id="cdCover" class="cd-cover active">
             <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
@@ -163,6 +170,43 @@
             document.getElementById('lyricsVideo').play();
             loadSongs();
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+    fetch("lyrics.json")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("song-title").textContent = `${data.title} - ${data.artist}`;
+            const lyricsContainer = document.getElementById("lyrics-content");
+            const annotationBox = document.getElementById("annotation-box");
+
+            data.lyrics.forEach(lineData => {
+                let lineElement = document.createElement("span");
+
+                if (lineData.annotation) {
+                    lineElement.classList.add("annotated");
+                    lineElement.dataset.note = lineData.annotation;
+                }
+
+                lineElement.textContent = lineData.line;
+                lyricsContainer.appendChild(lineElement);
+                lyricsContainer.appendChild(document.createElement("br"));
+                lyricsContainer.appendChild(document.createElement("br"));
+            });
+
+            document.addEventListener("click", function (event) {
+                if (event.target.classList.contains("annotated")) {
+                    annotationBox.textContent = event.target.dataset.note;
+                    annotationBox.style.display = "block";
+                    annotationBox.style.left = event.pageX + "px";
+                    annotationBox.style.top = event.pageY + "px";
+                } else {
+                    annotationBox.style.display = "none";
+                }
+            });
+        })
+        .catch(error => console.error("Error cargando las letras:", error));
+});
+
     </script>
 </body>
 </html>
