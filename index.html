@@ -82,6 +82,10 @@
             max-width: 300px;
             font-size: 14px;
         }
+        #lyrics-content {
+            margin-top: 20px;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -110,6 +114,7 @@
                 <button onclick="nextSong()">⏭️</button>
             </div>
             <p id="currentSong">Select a song</p>
+            <div id="lyrics-content"></div>
         </div>
     </div>
 
@@ -158,11 +163,18 @@
 
         // Función para comenzar a escuchar
         function startListening() {
+            // Mostrar la vista de letras pero mantener el video del CD rotando
+            document.getElementById('cdCover').classList.remove('active');
+            document.getElementById('cdView').classList.remove('active');
+            document.getElementById('lyricsView').classList.add('active');
+
+            // Llenar la lista de canciones
             const songList = document.getElementById('songList');
             songs.forEach((song, index) => {
                 const li = document.createElement('li');
                 li.innerText = song.title;
                 li.addEventListener('click', function () {
+                    playSong(index);
                     showLyrics(index);
                 });
                 songList.appendChild(li);
@@ -179,12 +191,12 @@
             audioPlayer.play();
         }
         
-        // Mostrar la vista de la CD
+        // Mostrar la vista del CD
         function showCDView() {
             document.getElementById('cdCover').classList.remove('active');
             document.getElementById('cdView').classList.add('active');
         }
-        
+
         // Mostrar/ocultar el cuadro de anotación
         document.addEventListener('click', function (event) {
             if (!event.target.classList.contains('annotated')) {
@@ -194,4 +206,5 @@
     </script>
 </body>
 </html>
+
 
