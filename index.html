@@ -127,34 +127,109 @@
     </div>
 
     <script>
-        // Cargar las canciones y las letras
-        const songs = [
-            {
-                title: "margaret by lana del rey ft bleachers",
-                file: "song1.mp3",
-                lyrics: `
-                    This is a simple song, gonna write it for a friend
-                    My shirt is inside out, I'm messy with the pen
-                    He met Margaret on a rooftop, she was wearin' white
-                    <span class="annotated" data-note="un ratito de hablar de lo que resultó ser mi drama favorito y ya estaba dudando de lo que podríamos ser. un día entero hablando con vos y ya nos veía exactamente donde estamos ahora, todos los días cuestionaba si saltar del edificio o esperar una señal">And he was like, 'I might be in trouble'</span>
-                    <span class="annotated" data-note="el amor existe por y para nosotros">'Cause, baby, if your love is in trouble</span>
-                    <span class="annotated" data-note="estábamos(estamos) tan enganchados tan rápido que para justificarnos a nosotros mismos y nuestras emociones descomunales y gigantes nos repetíamos esto todos los días <3 en chiste pero no en chiste">When you know, you know</span>
-                    When you're good as gold
-                    <span class="annotated" data-note="contándole a mis amigos ohh conocí a alguien y tal vez... me hablo con uno pero... hablo cada vez más con gami y quizás... pero desvergonzadamente admitiendo que estaba enamorado de vos a dos semanas de conocerte <3">Word to all my friends</span>
-                    <span class="annotated" data-note="el amor existe por y para nosotros">'Cause, baby, if your love is in trouble</span>
-                    'Cause when you know, you know
-                `
-            },
-            {
-                title: "Second Song",
-                file: "song2.mp3",
-                lyrics: `
-                    A second song goes here, let's make it longer to test if everything displays
-                    properly without cutting off or overflowing.
-                    <span class="annotated" data-note="Additional annotation for testing purposes">Test annotation here</span>
-                `
-            }
-        ];
+    // Cargar las canciones y las letras
+    const songs = [
+        {
+            title: "margaret by lana del rey ft bleachers",
+            file: "song1.mp3",
+            lyrics: `
+                This is a simple song, gonna write it for a friend
+                My shirt is inside out, I'm messy with the pen
+                He met Margaret on a rooftop, she was wearin' white
+                <span class="annotated" data-note="un ratito de hablar de lo que resultó ser mi drama favorito y ya estaba dudando de lo que podríamos ser. un día entero hablando con vos y ya nos veía exactamente donde estamos ahora, todos los días cuestionaba si saltar del edificio o esperar una señal">And he was like, 'I might be in trouble'</span>
+                <span class="annotated" data-note="el amor existe por y para nosotros">'Cause, baby, if your love is in trouble</span>
+                <span class="annotated" data-note="estábamos(estamos) tan enganchados tan rápido que para justificarnos a nosotros mismos y nuestras emociones descomunales y gigantes nos repetíamos esto todos los días <3 en chiste pero no en chiste">When you know, you know</span>
+                When you're good as gold
+                <span class="annotated" data-note="contándole a mis amigos ohh conocí a alguien y tal vez... me hablo con uno pero... hablo cada vez más con gami y quizás... pero desvergonzadamente admitiendo que estaba enamorado de vos a dos semanas de conocerte <3">Word to all my friends</span>
+                <span class="annotated" data-note="el amor existe por y para nosotros">'Cause, baby, if your love is in trouble</span>
+                'Cause when you know, you know
+            `
+        },
+        {
+            title: "my love mine all mine by mitski",
+            file: "song2.mp3",
+            lyrics: `
+                A second song goes here, let's make it longer to test if everything displays
+                properly without cutting off or overflowing.
+                <span class="annotated" data-note="Additional annotation for testing purposes">Test annotation here</span>
+            `
+        },
+        {
+            title: "love. by wave to earth",
+            file: "song3.mp3",
+            lyrics: `
+                This is the lyrics for the third song.
+                Just keep writing the lyrics here.
+                <span class="annotated" data-note="First annotation for song 3">First annotation for song 3</span>
+                Continue with more lyrics.
+            `
+        },
+        {
+            title: "endlessly by kali uchis",
+            file: "song4.mp3",
+            lyrics: `
+                Another song, with more lyrics.
+                <span class="annotated" data-note="This is an annotation for the fourth song">Annotation for the fourth song</span>
+                Here’s more text for the song.
+            `
+        },
+        {
+            title: "in a week by hozier ft karen cowley",
+            file: "song5.mp3",
+            lyrics: `
+                Here are the lyrics for the fifth song.
+                <span class="annotated" data-note="Just another test annotation">Test annotation for song 5</span>
+                Keep writing your song lyrics here.
+            `
+        },
+        {
+            title: "to be alone with you by sufjan stevens",
+            file: "song6.mp3",
+            lyrics: `
+                This song brings the sixth experience.
+                <span class="annotated" data-note="More annotations for this song">Annotation for song 6</span>
+                Continue with the lyrics of the sixth song.
+            `
+        },
+        {
+            title: "wasteland, baby! by hozier",
+            file: "song7.mp3",
+            lyrics: `
+                Lyrics of the seventh song go here.
+                <span class="annotated" data-note="This is the seventh annotation for this song">Seventh song annotation</span>
+                Keep adding lyrics here.
+            `
+        },
+        {
+            title: "sweet marie by the walters",
+            file: "song8.mp3",
+            lyrics: `
+                Now we are on the eighth song.
+                <span class="annotated" data-note="This is the eighth annotation">Eighth song annotation</span>
+                Add the lyrics here.
+            `
+        },
+        {
+            title: "falling in love by cigarettes after sex",
+            file: "song9.mp3",
+            lyrics: `
+                For the ninth song, add lyrics here.
+                <span class="annotated" data-note="Ninth song annotation">Ninth annotation</span>
+                Finish writing the lyrics.
+            `
+        },
+        {
+            title: "watch you sleep. by girl in red",
+            file: "song10.mp3",
+            lyrics: `
+                The final song is here!
+                <span class="annotated" data-note="Final annotation for the tenth song">Tenth annotation</span>
+                Continue with the lyrics of the tenth song.
+            `
+        }
+    ];
+</script>
+
 
         // Función para mostrar la letra de la canción y las anotaciones
         function showLyrics(songIndex) {
