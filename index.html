@@ -319,7 +319,7 @@
         }
     ];
 
-        // Función para mostrar la letra de la canción y las anotaciones
+// Función para mostrar la letra de la canción y las anotaciones
     function showLyrics(songIndex) {
         const song = songs[songIndex];
         const lyricsContent = document.getElementById('lyrics-content');
@@ -356,7 +356,7 @@
             li.innerText = song.title;
             li.addEventListener('click', function () {
                 playSong(index);
-                showLyrics(index);
+                showLyrics(index); // Cargar letras y anotaciones
             });
             songList.appendChild(li);
         });
