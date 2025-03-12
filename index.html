@@ -320,70 +320,70 @@
     ];
 
         // Función para mostrar la letra de la canción y las anotaciones
-        function showLyrics(songIndex) {
-            const song = songs[songIndex];
-            const lyricsContent = document.getElementById('lyrics-content');
-            const annotationBox = document.getElementById('annotation-box');
-            
-            // Mostrar la letra con las anotaciones
-            lyricsContent.innerHTML = song.lyrics;
+    function showLyrics(songIndex) {
+        const song = songs[songIndex];
+        const lyricsContent = document.getElementById('lyrics-content');
+        const annotationBox = document.getElementById('annotation-box');
+        
+        // Mostrar la letra con las anotaciones
+        lyricsContent.innerHTML = song.lyrics;
 
-            // Mostrar las anotaciones al hacer clic en la línea
-            const annotatedElements = document.querySelectorAll('.annotated');
-            annotatedElements.forEach(element => {
-                element.addEventListener('click', function () {
-                    const note = element.getAttribute('data-note');
-                    annotationBox.innerHTML = note;
-                    annotationBox.style.display = 'block';
-                    annotationBox.style.left = `${element.getBoundingClientRect().left}px`;
-                    annotationBox.style.top = `${element.getBoundingClientRect().top + element.offsetHeight}px`;
-                });
+        // Mostrar las anotaciones al hacer clic en la línea
+        const annotatedElements = document.querySelectorAll('.annotated');
+        annotatedElements.forEach(element => {
+            element.addEventListener('click', function () {
+                const note = element.getAttribute('data-note');
+                annotationBox.innerHTML = note;
+                annotationBox.style.display = 'block';
+                annotationBox.style.left = `${element.getBoundingClientRect().left}px`;
+                annotationBox.style.top = `${element.getBoundingClientRect().top + element.offsetHeight}px`;
             });
-        }
-
-        // Función para comenzar a escuchar
-        function startListening() {
-            // Mostrar la vista de letras pero mantener el video del CD rotando
-            document.getElementById('cdCover').classList.remove('active');
-            document.getElementById('cdView').classList.remove('active');
-            document.getElementById('lyricsView').classList.add('active');
-
-            // Llenar la lista de canciones
-            const songList = document.getElementById('songList');
-            songList.innerHTML = ''; // Limpiar cualquier contenido anterior
-            songs.forEach((song, index) => {
-                const li = document.createElement('li');
-                li.innerText = song.title;
-                li.addEventListener('click', function () {
-                    playSong(index);
-                    showLyrics(index);
-                });
-                songList.appendChild(li);
-            });
-        }
-
-        // Función para manejar la reproducción de la música
-        function playSong(songIndex) {
-            const audioPlayer = document.getElementById('audioPlayer');
-            const song = songs[songIndex];
-            const audioSource = document.getElementById('audioSource');
-            audioSource.src = song.file;
-            audioPlayer.load();
-            audioPlayer.play();
-        }
-
-        // Mostrar la vista del CD
-        function showCDView() {
-            document.getElementById('cdCover').classList.remove('active');
-            document.getElementById('cdView').classList.add('active');
-        }
-
-        // Mostrar/ocultar el cuadro de anotación
-        document.addEventListener('click', function (event) {
-            if (!event.target.classList.contains('annotated')) {
-                document.getElementById('annotation-box').style.display = 'none';
-            }
         });
+    }
+
+    // Función para comenzar a escuchar
+    function startListening() {
+        // Mostrar la vista de letras pero mantener el video del CD rotando
+        document.getElementById('cdCover').classList.remove('active');
+        document.getElementById('cdView').classList.add('active');
+        document.getElementById('lyricsView').classList.add('active');
+
+        // Llenar la lista de canciones
+        const songList = document.getElementById('songList');
+        songList.innerHTML = ''; // Limpiar cualquier contenido anterior
+        songs.forEach((song, index) => {
+            const li = document.createElement('li');
+            li.innerText = song.title;
+            li.addEventListener('click', function () {
+                playSong(index);
+                showLyrics(index);
+            });
+            songList.appendChild(li);
+        });
+    }
+
+    // Función para manejar la reproducción de la música
+    function playSong(songIndex) {
+        const audioPlayer = document.getElementById('audioPlayer');
+        const song = songs[songIndex];
+        const audioSource = document.getElementById('audioSource');
+        audioSource.src = song.file;
+        audioPlayer.load();
+        audioPlayer.play();
+    }
+
+    // Mostrar la vista del CD
+    function showCDView() {
+        document.getElementById('cdCover').classList.remove('active');
+        document.getElementById('cdView').classList.add('active');
+    }
+
+    // Mostrar/ocultar el cuadro de anotación
+    document.addEventListener('click', function (event) {
+        if (!event.target.classList.contains('annotated')) {
+            document.getElementById('annotation-box').style.display = 'none';
+        }
+    });
     </script>
 </body>
 </html>
