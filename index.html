@@ -77,12 +77,12 @@
         </div>
         <div id="cdView" class="cd-view">
             <img src="covernew.jpg" alt="CD Cover">
-            <video src="cd-rotating.mp4" autoplay loop></video>
+            <video id="cdVideo" src="cd-rotating.mp4" autoplay loop></video>
             <img src="backnew.jpg" alt="CD Back">
         </div>
         <button class="button" onclick="startListening()">Start listening + lyrics!</button>
         <div id="lyricsView" class="lyrics-view">
-            <video src="cd-rotating.mp4" autoplay loop></video>
+            <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop></video>
             <ul class="song-list" id="songList"></ul>
             <audio id="audioPlayer" controls>
                 <source id="audioSource" src="" type="audio/mp3">
@@ -147,11 +147,13 @@
         function showCDView() {
             document.getElementById('cdCover').classList.remove('active');
             document.getElementById('cdView').classList.add('active');
+            document.getElementById('cdVideo').play();
         }
 
         function startListening() {
             document.getElementById('cdView').classList.remove('active');
             document.getElementById('lyricsView').classList.add('active');
+            document.getElementById('lyricsVideo').play();
             loadSongs();
         }
     </script>
