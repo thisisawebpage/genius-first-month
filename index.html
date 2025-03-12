@@ -122,64 +122,35 @@
         const songList = document.getElementById("songList");
         const currentSongText = document.getElementById("currentSong");
 
-        function loadSongs() {
-            songList.innerHTML = "";
-            songs.forEach((song, index) => {
-                let li = document.createElement("li");
-                li.textContent = song.title;
-                li.onclick = () => playSong(index);
-                songList.appendChild(li);
-            });
-        }
-
         function playSong(index) {
-            currentSongIndex = index;
-            audioSource.src = songs[index].file;
-            audioPlayer.load();
-            audioPlayer.play();
-            currentSongText.textContent = songs[index].title;
-        }
+    currentSongIndex = index;
+    audioSource.src = songs[index].file;
+    audioPlayer.load();
+    audioPlayer.play();
+    currentSongText.textContent = songs[index].title;
 
-        function togglePlay() {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-            } else {
-                audioPlayer.pause();
-            }
-        }
-
-        function nextSong() {
-            currentSongIndex = (currentSongIndex + 1) % songs.length;
-            playSong(currentSongIndex);
-        }
-
-        function prevSong() {
-            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-            playSong(currentSongIndex);
-        }
-
-        function showCDView() {
-            document.getElementById('cdCover').classList.remove('active');
-            document.getElementById('cdView').classList.add('active');
-            document.getElementById('cdVideo').play();
-        }
-
-        function startListening() {
-            document.getElementById('cdView').classList.remove('active');
-            document.getElementById('lyricsView').classList.add('active');
-            document.getElementById('lyricsVideo').play();
-            loadSongs();
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
+    // Cargar las letras desde el JSON
     fetch("lyrics.json")
         .then(response => response.json())
         .then(data => {
-            document.getElementById("song-title").textContent = `${data.title} - ${data.artist}`;
+            // Buscar la canción correcta en el JSON
+            const songData = data.songs.find(song => song.title === songs[index].title);
+            if (!songData) {
+                console.error("Letra no encontrada para esta canción");
+                return;
+            }
+
+            // Actualizar título
+            document.getElementById("song-title").textContent = songData.title;
+
+            // Limpiar el contenido anterior
             const lyricsContainer = document.getElementById("lyrics-content");
+            lyricsContainer.innerHTML = "";
+            
             const annotationBox = document.getElementById("annotation-box");
 
-            data.lyrics.forEach(lineData => {
+            // Recorrer cada línea de la letra
+            songData.lyrics.forEach(lineData => {
                 let lineElement = document.createElement("span");
 
                 if (lineData.annotation) {
@@ -193,6 +164,7 @@
                 lyricsContainer.appendChild(document.createElement("br"));
             });
 
+            // Manejo de anotaciones al hacer clic en texto resaltado
             document.addEventListener("click", function (event) {
                 if (event.target.classList.contains("annotated")) {
                     annotationBox.textContent = event.target.dataset.note;
@@ -205,7 +177,7 @@
             });
         })
         .catch(error => console.error("Error cargando las letras:", error));
-});
+}
 
     </script>
 </body>
