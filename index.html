@@ -56,6 +56,7 @@
             list-style: none;
             padding: 0;
             font-size: 20px;
+            margin-bottom: 30px;
         }
         .song-list li {
             cursor: pointer;
@@ -67,6 +68,17 @@
         .lyrics-view {
             flex-direction: column;
             align-items: center;
+            width: 90%;
+            max-width: 1000px;
+        }
+        #lyrics-content {
+            margin-top: 20px;
+            font-size: 18px;
+            width: 100%;
+            max-width: 800px;
+            white-space: pre-wrap; /* Mantener saltos de línea */
+            overflow-y: auto; /* Desplazamiento vertical si la letra es larga */
+            max-height: 300px; /* Limitar la altura de la vista de letras */
         }
         .annotated {
             background-color: yellow;
@@ -81,10 +93,6 @@
             display: none;
             max-width: 300px;
             font-size: 14px;
-        }
-        #lyrics-content {
-            margin-top: 20px;
-            font-size: 20px;
         }
     </style>
 </head>
@@ -136,6 +144,15 @@
                     <span class="annotated" data-note="el amor existe por y para nosotros">'Cause, baby, if your love is in trouble</span>
                     'Cause when you know, you know
                 `
+            },
+            {
+                title: "Second Song",
+                file: "song2.mp3",
+                lyrics: `
+                    A second song goes here, let's make it longer to test if everything displays
+                    properly without cutting off or overflowing.
+                    <span class="annotated" data-note="Additional annotation for testing purposes">Test annotation here</span>
+                `
             }
         ];
 
@@ -170,6 +187,7 @@
 
             // Llenar la lista de canciones
             const songList = document.getElementById('songList');
+            songList.innerHTML = ''; // Limpiar cualquier contenido anterior
             songs.forEach((song, index) => {
                 const li = document.createElement('li');
                 li.innerText = song.title;
@@ -190,7 +208,7 @@
             audioPlayer.load();
             audioPlayer.play();
         }
-        
+
         // Mostrar la vista del CD
         function showCDView() {
             document.getElementById('cdCover').classList.remove('active');
@@ -206,5 +224,3 @@
     </script>
 </body>
 </html>
-
-
