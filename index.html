@@ -84,12 +84,13 @@
         </div>
         <div id="cdView" class="cd-view">
             <img src="covernew.jpg" alt="CD Cover">
-            <video id="cdVideo" src="cd-rotating.mp4" autoplay loop></video>
+            <!-- Asegúrate de que la ruta del video sea correcta -->
+            <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
             <img src="backnew.jpg" alt="CD Back">
         </div>
         <button class="button" onclick="startListening()">Start listening + lyrics!</button>
         <div id="lyricsView" class="lyrics-view">
-            <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop></video>
+            <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
             <ul class="song-list" id="songList"></ul>
             <audio id="audioPlayer" controls>
                 <source id="audioSource" src="" type="audio/mp3">
@@ -126,26 +127,19 @@
         const cdView = document.getElementById("cdView");
         const lyricsView = document.getElementById("lyricsView");
 
-        // Función para mostrar la vista del interior del CD
         function showCDView() {
-            // Ocultar portada
             cdCover.classList.remove("active");
-            // Mostrar vista del CD
             cdView.classList.add("active");
         }
 
-        // Función para mostrar la vista de letras y música
         function startListening() {
-            // Ocultar vista del CD
             cdView.classList.remove("active");
-            // Mostrar vista de letras
             lyricsView.classList.add("active");
-            loadSongList(); // Cargar la lista de canciones
+            loadSongList();
         }
 
-        // Cargar la lista de canciones
         function loadSongList() {
-            songList.innerHTML = ""; // Limpiar lista de canciones
+            songList.innerHTML = "";
             songs.forEach((song, index) => {
                 const songItem = document.createElement("li");
                 songItem.textContent = song.title;
@@ -156,7 +150,6 @@
             });
         }
 
-        // Función para reproducir la canción
         function playSong(index) {
             currentSongIndex = index;
             audioSource.src = songs[index].file;
@@ -164,42 +157,32 @@
             audioPlayer.play();
             currentSongText.textContent = songs[index].title;
 
-            // Cargar las letras desde el JSON
             fetch("lyrics.json")
                 .then(response => response.json())
                 .then(data => {
-                    // Buscar la canción correcta en el JSON
                     const songData = data.songs.find(song => song.title === songs[index].title);
                     if (!songData) {
                         console.error("Letra no encontrada para esta canción");
                         return;
                     }
-
-                    // Actualizar título
                     document.getElementById("song-title").textContent = songData.title;
-
-                    // Limpiar el contenido anterior
                     const lyricsContainer = document.getElementById("lyrics-content");
                     lyricsContainer.innerHTML = "";
                     
                     const annotationBox = document.getElementById("annotation-box");
 
-                    // Recorrer cada línea de la letra
                     songData.lyrics.forEach(lineData => {
                         let lineElement = document.createElement("span");
-
                         if (lineData.annotation) {
                             lineElement.classList.add("annotated");
                             lineElement.dataset.note = lineData.annotation;
                         }
-
                         lineElement.textContent = lineData.line;
                         lyricsContainer.appendChild(lineElement);
                         lyricsContainer.appendChild(document.createElement("br"));
                         lyricsContainer.appendChild(document.createElement("br"));
                     });
 
-                    // Manejo de anotaciones al hacer clic en texto resaltado
                     document.addEventListener("click", function (event) {
                         if (event.target.classList.contains("annotated")) {
                             annotationBox.textContent = event.target.dataset.note;
