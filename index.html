@@ -72,11 +72,11 @@
 </head>
 <body>
     <div class="lyrics-container">
-    <h2 id="song-title"></h2>
-    <p id="lyrics-content"></p>
-</div>
+        <h2 id="song-title"></h2>
+        <p id="lyrics-content"></p>
+    </div>
 
-<div id="annotation-box" class="annotation-box"></div>
+    <div id="annotation-box" class="annotation-box"></div>
 
     <div class="container">
         <div id="cdCover" class="cd-cover active">
@@ -103,115 +103,116 @@
             <p id="currentSong">Select a song</p>
         </div>
     </div>
+
     <script>
-       <script>
-    let songs = [
-        { title: "margaret by lana del rey ft bleachers", file: "song1.mp3", lyrics: "Lyrics of song 1" },
-        { title: "my love mine all mine by mitski", file: "song2.mp3", lyrics: "Lyrics of song 2" },
-        { title: "love. by wave to earth", file: "song3.mp3", lyrics: "Lyrics of song 3" },
-        { title: "endlessly by kali uchis", file: "song4.mp3", lyrics: "Lyrics of song 4" },
-        { title: "in a week by hozier ft karen cowley", file: "song5.mp3", lyrics: "Lyrics of song 5" },
-        { title: "to be alone with you by sufjan stevens", file: "song6.mp3", lyrics: "Lyrics of song 6" },
-        { title: "wasteland, baby! by hozier", file: "song7.mp3", lyrics: "Lyrics of song 7" },
-        { title: "sweet marie by the walters", file: "song8.mp3", lyrics: "Lyrics of song 8" },
-        { title: "falling in love by cigarettes after sex", file: "song9.mp3", lyrics: "Lyrics of song 9" },
-        { title: "watch you sleep. by girl in red", file: "song10.mp3", lyrics: "Lyrics of song 10" }
-    ];
-    let currentSongIndex = 0;
-    const audioPlayer = document.getElementById("audioPlayer");
-    const audioSource = document.getElementById("audioSource");
-    const songList = document.getElementById("songList");
-    const currentSongText = document.getElementById("currentSong");
-    const cdCover = document.getElementById("cdCover");
-    const cdView = document.getElementById("cdView");
-    const lyricsView = document.getElementById("lyricsView");
+        let songs = [
+            { title: "margaret by lana del rey ft bleachers", file: "song1.mp3", lyrics: "Lyrics of song 1" },
+            { title: "my love mine all mine by mitski", file: "song2.mp3", lyrics: "Lyrics of song 2" },
+            { title: "love. by wave to earth", file: "song3.mp3", lyrics: "Lyrics of song 3" },
+            { title: "endlessly by kali uchis", file: "song4.mp3", lyrics: "Lyrics of song 4" },
+            { title: "in a week by hozier ft karen cowley", file: "song5.mp3", lyrics: "Lyrics of song 5" },
+            { title: "to be alone with you by sufjan stevens", file: "song6.mp3", lyrics: "Lyrics of song 6" },
+            { title: "wasteland, baby! by hozier", file: "song7.mp3", lyrics: "Lyrics of song 7" },
+            { title: "sweet marie by the walters", file: "song8.mp3", lyrics: "Lyrics of song 8" },
+            { title: "falling in love by cigarettes after sex", file: "song9.mp3", lyrics: "Lyrics of song 9" },
+            { title: "watch you sleep. by girl in red", file: "song10.mp3", lyrics: "Lyrics of song 10" }
+        ];
+        let currentSongIndex = 0;
+        const audioPlayer = document.getElementById("audioPlayer");
+        const audioSource = document.getElementById("audioSource");
+        const songList = document.getElementById("songList");
+        const currentSongText = document.getElementById("currentSong");
+        const cdCover = document.getElementById("cdCover");
+        const cdView = document.getElementById("cdView");
+        const lyricsView = document.getElementById("lyricsView");
 
-    // Función para mostrar la vista de la CD
-    function showCDView() {
-        cdCover.classList.remove("active");  // Ocultar la portada del CD
-        cdView.classList.add("active");      // Mostrar el interior del CD
-    }
+        // Función para mostrar la vista del interior del CD
+        function showCDView() {
+            // Ocultar portada
+            cdCover.classList.remove("active");
+            // Mostrar vista del CD
+            cdView.classList.add("active");
+        }
 
-    // Función para mostrar la vista de letras y música
-    function startListening() {
-        cdView.classList.remove("active");  // Ocultar la vista del CD
-        lyricsView.classList.add("active"); // Mostrar la vista de letras y música
-        loadSongList();
-    }
+        // Función para mostrar la vista de letras y música
+        function startListening() {
+            // Ocultar vista del CD
+            cdView.classList.remove("active");
+            // Mostrar vista de letras
+            lyricsView.classList.add("active");
+            loadSongList(); // Cargar la lista de canciones
+        }
 
-    // Cargar las canciones en la lista
-    function loadSongList() {
-        songList.innerHTML = "";  // Limpiar la lista anterior
-        songs.forEach((song, index) => {
-            const songItem = document.createElement("li");
-            songItem.textContent = song.title;
-            songItem.onclick = function () {
-                playSong(index);
-            };
-            songList.appendChild(songItem);
-        });
-    }
+        // Cargar la lista de canciones
+        function loadSongList() {
+            songList.innerHTML = ""; // Limpiar lista de canciones
+            songs.forEach((song, index) => {
+                const songItem = document.createElement("li");
+                songItem.textContent = song.title;
+                songItem.onclick = function () {
+                    playSong(index);
+                };
+                songList.appendChild(songItem);
+            });
+        }
 
-    // Función para reproducir una canción
-    function playSong(index) {
-        currentSongIndex = index;
-        audioSource.src = songs[index].file;
-        audioPlayer.load();
-        audioPlayer.play();
-        currentSongText.textContent = songs[index].title;
+        // Función para reproducir la canción
+        function playSong(index) {
+            currentSongIndex = index;
+            audioSource.src = songs[index].file;
+            audioPlayer.load();
+            audioPlayer.play();
+            currentSongText.textContent = songs[index].title;
 
-        // Cargar las letras desde el JSON
-        fetch("lyrics.json")
-            .then(response => response.json())
-            .then(data => {
-                // Buscar la canción correcta en el JSON
-                const songData = data.songs.find(song => song.title === songs[index].title);
-                if (!songData) {
-                    console.error("Letra no encontrada para esta canción");
-                    return;
-                }
-
-                // Actualizar título
-                document.getElementById("song-title").textContent = songData.title;
-
-                // Limpiar el contenido anterior
-                const lyricsContainer = document.getElementById("lyrics-content");
-                lyricsContainer.innerHTML = "";
-                
-                const annotationBox = document.getElementById("annotation-box");
-
-                // Recorrer cada línea de la letra
-                songData.lyrics.forEach(lineData => {
-                    let lineElement = document.createElement("span");
-
-                    if (lineData.annotation) {
-                        lineElement.classList.add("annotated");
-                        lineElement.dataset.note = lineData.annotation;
+            // Cargar las letras desde el JSON
+            fetch("lyrics.json")
+                .then(response => response.json())
+                .then(data => {
+                    // Buscar la canción correcta en el JSON
+                    const songData = data.songs.find(song => song.title === songs[index].title);
+                    if (!songData) {
+                        console.error("Letra no encontrada para esta canción");
+                        return;
                     }
 
-                    lineElement.textContent = lineData.line;
-                    lyricsContainer.appendChild(lineElement);
-                    lyricsContainer.appendChild(document.createElement("br"));
-                    lyricsContainer.appendChild(document.createElement("br"));
-                });
+                    // Actualizar título
+                    document.getElementById("song-title").textContent = songData.title;
 
-                // Manejo de anotaciones al hacer clic en texto resaltado
-                document.addEventListener("click", function (event) {
-                    if (event.target.classList.contains("annotated")) {
-                        annotationBox.textContent = event.target.dataset.note;
-                        annotationBox.style.display = "block";
-                        annotationBox.style.left = event.pageX + "px";
-                        annotationBox.style.top = event.pageY + "px";
-                    } else {
-                        annotationBox.style.display = "none";
-                    }
-                });
-            })
-            .catch(error => console.error("Error cargando las letras:", error));
-    }
+                    // Limpiar el contenido anterior
+                    const lyricsContainer = document.getElementById("lyrics-content");
+                    lyricsContainer.innerHTML = "";
+                    
+                    const annotationBox = document.getElementById("annotation-box");
 
-</script>
+                    // Recorrer cada línea de la letra
+                    songData.lyrics.forEach(lineData => {
+                        let lineElement = document.createElement("span");
 
+                        if (lineData.annotation) {
+                            lineElement.classList.add("annotated");
+                            lineElement.dataset.note = lineData.annotation;
+                        }
+
+                        lineElement.textContent = lineData.line;
+                        lyricsContainer.appendChild(lineElement);
+                        lyricsContainer.appendChild(document.createElement("br"));
+                        lyricsContainer.appendChild(document.createElement("br"));
+                    });
+
+                    // Manejo de anotaciones al hacer clic en texto resaltado
+                    document.addEventListener("click", function (event) {
+                        if (event.target.classList.contains("annotated")) {
+                            annotationBox.textContent = event.target.dataset.note;
+                            annotationBox.style.display = "block";
+                            annotationBox.style.left = event.pageX + "px";
+                            annotationBox.style.top = event.pageY + "px";
+                        } else {
+                            annotationBox.style.display = "none";
+                        }
+                    });
+                })
+                .catch(error => console.error("Error cargando las letras:", error));
+        }
     </script>
 </body>
 </html>
