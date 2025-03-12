@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>happy first month!</title>
+    <title>CD Experience</title>
     <style>
         body {
             display: flex;
@@ -24,17 +24,17 @@
             display: block;
         }
         img, video {
-            width: 300px;
+            width: 500px;
             height: auto;
             cursor: pointer;
         }
         .button {
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 15px 30px;
             background-color: #ffcc00;
             border: none;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 22px;
         }
         .player {
             margin-top: 20px;
@@ -42,10 +42,11 @@
         .song-list {
             list-style: none;
             padding: 0;
+            font-size: 20px;
         }
         .song-list li {
             cursor: pointer;
-            padding: 5px;
+            padding: 8px;
         }
         .song-list li:hover {
             text-decoration: underline;
@@ -54,20 +55,15 @@
 </head>
 <body>
     <div class="container">
-        <!-- CD Cover -->
         <div id="cdCover" class="cd-cover active">
             <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
         </div>
-
-        <!-- CD View -->
         <div id="cdView" class="cd-view">
             <img src="covernew.jpg" alt="CD Cover">
             <video src="cd-rotating.mp4" autoplay loop></video>
             <img src="backnew.jpg" alt="CD Back">
             <button class="button" onclick="startListening()">Start listening + lyrics!</button>
         </div>
-
-        <!-- Lyrics View -->
         <div id="lyricsView" class="lyrics-view">
             <video src="cd-rotating.mp4" autoplay loop></video>
             <ul class="song-list" id="songList"></ul>
@@ -83,20 +79,11 @@
             <p id="currentSong">Select a song</p>
         </div>
     </div>
-
     <script>
-        // Song data
         let songs = [
             { title: "Song 1", file: "song1.mp3" },
             { title: "Song 2", file: "song2.mp3" },
-            { title: "Song 3", file: "song3.mp3" },
-            { title: "Song 4", file: "song4.mp3" },
-            { title: "Song 5", file: "song5.mp3" },
-            { title: "Song 6", file: "song6.mp3" },
-            { title: "Song 7", file: "song7.mp3" },
-            { title: "Song 8", file: "song8.mp3" },
-            { title: "Song 9", file: "song9.mp3" },
-            { title: "Song 10", file: "song10.mp3" }
+            { title: "Song 3", file: "song3.mp3" }
         ];
         let currentSongIndex = 0;
         const audioPlayer = document.getElementById("audioPlayer");
@@ -104,7 +91,6 @@
         const songList = document.getElementById("songList");
         const currentSongText = document.getElementById("currentSong");
 
-        // Load the song list
         function loadSongs() {
             songList.innerHTML = "";
             songs.forEach((song, index) => {
@@ -115,7 +101,6 @@
             });
         }
 
-        // Play selected song
         function playSong(index) {
             currentSongIndex = index;
             audioSource.src = songs[index].file;
@@ -124,7 +109,6 @@
             currentSongText.textContent = songs[index].title;
         }
 
-        // Play or pause song
         function togglePlay() {
             if (audioPlayer.paused) {
                 audioPlayer.play();
@@ -133,29 +117,25 @@
             }
         }
 
-        // Next song
         function nextSong() {
             currentSongIndex = (currentSongIndex + 1) % songs.length;
             playSong(currentSongIndex);
         }
 
-        // Previous song
         function prevSong() {
             currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
             playSong(currentSongIndex);
         }
 
-        // Show CD view (after clicking on CD cover)
         function showCDView() {
             document.getElementById('cdCover').classList.remove('active');
             document.getElementById('cdView').classList.add('active');
         }
 
-        // Start listening and show lyrics
         function startListening() {
             document.getElementById('cdView').classList.remove('active');
             document.getElementById('lyricsView').classList.add('active');
-            loadSongs();  // Load the song list after clicking the button
+            loadSongs();
         }
     </script>
 </body>
