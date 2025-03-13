@@ -679,39 +679,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 audioPlayer.play();
                 lyricsContent.innerHTML = song.lyrics;
 
-                 
-          
-            // Limpiar el contenido del panel de anotaciones antes de agregar nuevas anotaciones
-            annotationPanel.innerHTML = "<p><strong>Haz clic en un fragmento resaltado para ver la anotación.</strong></p>";
+         // Limpiar el panel de anotaciones antes de mostrar una nueva
+            annotationPanel.style.display = "none"; // Ocultar el panel
+            annotationPanel.textContent = ""; // Limpiar el contenido
 
             // Agregar el event listener para las anotaciones
             const annotatedElements = lyricsContent.querySelectorAll(".annotated");
-            console.log("Anotaciones encontradas: ", annotatedElements.length);  // Verificar cuántos elementos resaltados hay
-
             annotatedElements.forEach(element => {
                 element.addEventListener("click", function (event) {
                     const note = this.getAttribute("data-note");
 
-                    // Verificación: Ver si el contenido del data-note se obtiene correctamente
-                    console.log("Anotación clickeada: ", note);
-
-                    // Mostrar el panel de anotaciones
-                    annotationPanel.style.display = "block";
-                       annotationPanel.style.left = event.pageX + 10 + "px";
-                annotationPanel.style.top = event.pageY + 10 + "px";
-
-                    // Crear un nuevo párrafo para la anotación y agregarlo al panel
-                    const annotationParagraph = document.createElement("p");
-                    annotationParagraph.textContent = note;
-                    
-                    annotationPanel.appendChild(annotationParagraph);
-
-                    // Verificar que el panel esté visible
-                    console.log("Panel de anotaciones visible: ", annotationPanel.style.display);
+                    // Mostrar el panel de anotaciones con el nuevo contenido
+                    annotationPanel.textContent = note;
+                    annotationPanel.style.display = "block"; // Mostrar el panel
+                    annotationPanel.style.left = event.pageX + 10 + "px";
+                    annotationPanel.style.top = event.pageY + 10 + "px";
                 });
             });
         };
-            songList.appendChild(li);
-        });
+        songList.appendChild(li);
     });
+
+    // Cerrar el panel de anotaciones si se hace clic fuera del panel
+    document.addEventListener("click", function (event) {
+        if (!event.target.classList.contains("annotated") && !event.target.closest("#annotation-panel")) {
+            annotationPanel.style.display = "none"; // Ocultar el panel
+        }
+    });
+});
     </script>
