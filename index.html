@@ -697,9 +697,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     annotationPanel.innerHTML = note; // Usar innerHTML para soportar formato
                     annotationPanel.style.display = "block"; // Mostrar el panel
 
-                    // Asegurarse de que la posición del panel sea correcta
-                    annotationPanel.style.left = event.pageX + 10 + "px";
-                    annotationPanel.style.top = event.pageY + 10 + "px";
+                    // Asegurarse de que el contenido esté en el panel
+                    annotationPanel.style.left = 'auto';  // Asegura que no se desplace horizontalmente
+                    annotationPanel.style.right = '0';    // Posicionar siempre a la derecha de la página
 
                     console.log(`Panel de anotaciones visible: ${annotationPanel.style.display}`);
                 });
