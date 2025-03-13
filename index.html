@@ -177,12 +177,13 @@
 </div>
 
 <div class="container">
-        <!-- Primera página: Solo la portada del CD -->
+       <div class="container">
+        <!-- Página 1: Solo la portada del CD -->
         <div id="cdCover" class="cd-cover active">
             <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
         </div>
 
-        <!-- Segunda página: Portada, Video, parte trasera y botón -->
+        <!-- Página 2: Portada, video, parte trasera y el botón -->
         <div id="cdView" class="cd-view">
             <img src="covernew.jpg" alt="CD Cover">
             <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
@@ -190,8 +191,8 @@
         </div>
         <button class="button" onclick="startListening()">start listening + lyrics!</button>
 
-        <!-- Tercera página: Video pequeño, letras centradas y reproductor -->
-        <div id="lyricsView" class="lyrics-view active">
+        <!-- Página 3: Video pequeño, letras centradas, y reproductor -->
+        <div id="lyricsView" class="lyrics-view">
             <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
             <ul class="song-list" id="songList"></ul>
 
