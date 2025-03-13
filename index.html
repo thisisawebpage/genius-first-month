@@ -665,6 +665,13 @@
     const annotationText = document.createElement("p"); 
     annotationPanel.appendChild(annotationText);
 
+    document.addEventListener("DOMContentLoaded", function () {
+    const songList = document.getElementById("songList");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const audioSource = document.getElementById("audioSource");
+    const lyricsContent = document.getElementById("lyrics-content");
+    const annotationPanel = document.getElementById("annotation-box");
+
     songs.forEach((song, index) => {
         const li = document.createElement("li");
         li.textContent = song.title;
@@ -674,22 +681,24 @@
             audioPlayer.play();
             lyricsContent.innerHTML = song.lyrics;
 
+            console.log("Cargando letra de la canción:", song.lyrics); // Verifica si las letras están cargando
+
             setTimeout(() => {
                 const annotatedElements = lyricsContent.querySelectorAll(".annotated");
-
+                
                 console.log("Elementos anotados encontrados:", annotatedElements.length); // Verifica en la consola
 
                 annotatedElements.forEach(element => {
                     element.addEventListener("click", function (event) {
                         const note = this.getAttribute("data-note");
-                        annotationText.textContent = note;
+                        annotationPanel.textContent = note;
                         annotationPanel.style.display = "block";
                         annotationPanel.style.left = event.pageX + 10 + "px";
                         annotationPanel.style.top = event.pageY + 10 + "px";
                     });
                 });
 
-                // Cerrar anotaciones al hacer clic fuera
+                // Ocultar anotaciones al hacer clic fuera
                 document.addEventListener("click", function(event){
                     if (!event.target.classList.contains("annotated")){
                         annotationPanel.style.display = "none";
