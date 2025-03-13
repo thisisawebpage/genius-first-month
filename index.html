@@ -348,6 +348,7 @@
         }
     ];
 
+
     function showCDView() {
         document.getElementById("cdCover").classList.remove("active");
         document.getElementById("cdView").classList.add("active");
@@ -363,6 +364,7 @@
         const audioPlayer = document.getElementById("audioPlayer");
         const audioSource = document.getElementById("audioSource");
         const lyricsContent = document.getElementById("lyrics-content");
+        const annotationBox = document.getElementById("annotation-box");
 
         songs.forEach((song, index) => {
             const li = document.createElement("li");
@@ -372,6 +374,25 @@
                 audioPlayer.load();
                 audioPlayer.play();
                 lyricsContent.innerHTML = song.lyrics;
+
+                // Agregar el event listener para las anotaciones
+                const annotatedElements = lyricsContent.querySelectorAll(".annotated");
+                annotatedElements.forEach(element => {
+                    element.addEventListener("click", function (event) {
+                        const note = this.getAttribute("data-note");
+                        annotationBox.textContent = note;
+                        annotationBox.style.display = "block";
+                        annotationBox.style.left = event.pageX + 10 + "px";
+                        annotationBox.style.top = event.pageY + 10 + "px";
+                    });
+                });
+
+                // Ocultar la anotación al hacer clic fuera
+                document.addEventListener("click", function(event){
+                    if (!event.target.classList.contains("annotated")){
+                        annotationBox.style.display="none";
+                    }
+                });
             };
             songList.appendChild(li);
         });
