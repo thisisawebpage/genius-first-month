@@ -121,8 +121,9 @@
     </style>
 </head>
 <body>
-<div id="annotation-panel">
-   <p id="annotation-text">Haz clic en un fragmento resaltado para ver la anotación.</p>
+    
+<div id="annotation-panel" style="display:none;">
+    <!-- Aquí aparecerán las anotaciones -->
 </div>
 
 
@@ -181,6 +182,7 @@
 
     </div>
     <script>
+        const annotationPanel = document.getElementById("annotation-panel");
     // Cargar las canciones y las letras
     const songs = [
         {
