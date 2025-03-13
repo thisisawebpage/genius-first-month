@@ -32,10 +32,20 @@
         align-items: center;
     }
 
+   /* Página 1: Solo la portada del CD */
+    .cd-cover img {
+        width: 700px;
+        height: auto;
+        cursor: pointer;
+    }
+
+    /* Página 2: Portada, video y parte trasera del CD */
     .cd-view {
+        display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        text-align: center;
     }
 
     .cd-view img, .cd-view video {
@@ -43,12 +53,7 @@
         height: auto;
     }
 
-    img, video {
-        width: 700px;
-        height: auto;
-        cursor: pointer;
-    }
-
+    /* Botón solo visible en la segunda página */
     .button {
         margin-top: 20px;
         padding: 15px 30px;
@@ -56,10 +61,23 @@
         border: none;
         cursor: pointer;
         font-size: 22px;
+        display: none; /* Se esconde por defecto */
     }
 
-    .player {
-        margin-top: 20px;
+    /* Página 3: Video pequeño, letras centradas y reproductor */
+    #lyricsView {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        display: none; /* Se esconde por defecto */
+    }
+
+    #lyricsView video {
+        width: 300px; /* Video más pequeño */
+        height: auto;
+        margin-bottom: 20px;
     }
 
     .song-list {
@@ -67,32 +85,17 @@
         padding: 0;
         font-size: 20px;
         margin-bottom: 30px;
-    }
-
-    .song-list li {
-        cursor: pointer;
-        padding: 8px;
-    }
-
-    .song-list li:hover {
-        text-decoration: underline;
-    }
-
-    .lyrics-view {
-        flex-direction: column;
-        align-items: center;
-        width: 90%;
-        max-width: 1000px;
+        text-align: center;
     }
 
     #lyrics-content {
-        margin-top: 20px;
         font-size: 18px;
         width: 100%;
         max-width: 800px;
         white-space: pre-wrap;
         overflow-y: auto;
         max-height: 300px;
+        margin-top: 20px;
     }
       /* Estilo del panel de anotaciones */
 #annotation-panel {
@@ -139,36 +142,7 @@
             border-radius: 10px;
         }
 
-  /* Estilo para la tercera página */
-    #lyricsView {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    #lyricsView video {
-        width: 300px; /* Video más pequeño */
-        height: auto;
-        margin-bottom: 20px;
-    }
-
-    .song-list {
-        list-style: none;
-        padding: 0;
-        font-size: 20px;
-        margin-bottom: 30px;
-        text-align: center;
-    }
-
-    #lyrics-content {
-        font-size: 18px;
-        width: 100%;
-        max-width: 800px;
-        white-space: pre-wrap;
-        overflow-y: auto;
-        max-height: 300px;
-    }
+  
 </style>      
 </head>
 <body>
@@ -178,19 +152,18 @@
 </div>
 
 <div class="container">
-       <div class="container">
         <!-- Página 1: Solo la portada del CD -->
         <div id="cdCover" class="cd-cover active">
             <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
         </div>
 
         <!-- Página 2: Portada, video, parte trasera y el botón -->
-        <div id="cdView" class="cd-view">
+        <div id="cdView" class="cd-view" style="display: none;">
             <img src="covernew.jpg" alt="CD Cover">
             <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
             <img src="backnew.jpg" alt="CD Back">
         </div>
-        <button class="button" onclick="startListening()">start listening + lyrics!</button>
+        <button class="button" onclick="startListening()">Start listening + lyrics!</button>
 
         <!-- Página 3: Video pequeño, letras centradas, y reproductor -->
         <div id="lyricsView" class="lyrics-view">
@@ -689,10 +662,11 @@
             document.querySelector(".button").style.display = "inline-block";
         }
 
-     function startListening() {
-            document.getElementById("cdView").style.display = "none";
-            document.getElementById("lyricsView").style.display = "flex";
-        }
+    function startListening() {
+            document.getElementById("cdView").style.display = "none"; // Esconde la vista del CD
+            document.getElementById("lyricsView").style.display = "flex"; // Muestra la vista de las letras
+            document.querySelector(".button").style.display = "none";  // Esconde el botón
+        
 
       function prevSong() {
             // Lógica para la canción anterior
