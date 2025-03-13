@@ -106,7 +106,9 @@
     </style>
 </head>
 <body>
-<div id="annotation-box"></div>
+<div id="annotation-panel">
+   <p id="annotation-text">Haz clic en un fragmento resaltado para ver la anotación.</p>
+</div>
 
 
 
@@ -660,24 +662,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 lyricsContent.innerHTML = song.lyrics;
 
                 // Agregar el event listener para las anotaciones
-                const annotatedElements = lyricsContent.querySelectorAll(".annotated");
-                annotatedElements.forEach(element => {
-                    element.addEventListener("click", function (event) {
-                        const note = this.getAttribute("data-note");
-                        annotationBox.textContent = note;
-                        annotationBox.style.display = "block";
-                        annotationBox.style.left = event.pageX + 10 + "px";
-                        annotationBox.style.top = event.pageY + 10 + "px";
-                    });
-                });
+                 const annotatedElements = lyricsContent.querySelectorAll(".annotated");
+             annotatedElements.forEach(element => {
+                 element.addEventListener("click", function (event) {
+                     const note = this.getAttribute("data-note");
+                     annotationText.textContent = note;
 
-                // Ocultar la anotación al hacer clic fuera
-                document.addEventListener("click", function(event){
-                    if (!event.target.classList.contains("annotated")){
-                        annotationBox.style.display="none";
-                    }
-                });
-            };
+                     // Hacer visible el panel de anotaciones
+                     annotationPanel.style.display = "block";
+                 });
+             });
+         };
             songList.appendChild(li);
         });
     });
