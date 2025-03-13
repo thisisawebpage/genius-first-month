@@ -182,7 +182,7 @@
 
     </div>
     <script>
-        const annotationPanel = document.getElementById("annotation-panel");
+        
     // Cargar las canciones y las letras
     const songs = [
         {
@@ -663,6 +663,7 @@
     }
 
 document.addEventListener("DOMContentLoaded", function () {
+        const annotationPanel = document.getElementById("annotation-panel");
         const songList = document.getElementById("songList");
         const audioPlayer = document.getElementById("audioPlayer");
         const audioSource = document.getElementById("audioSource");
@@ -696,10 +697,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Mostrar el panel de anotaciones
                     annotationPanel.style.display = "block";
+                       annotationPanel.style.left = event.pageX + 10 + "px";
+                annotationPanel.style.top = event.pageY + 10 + "px";
 
                     // Crear un nuevo párrafo para la anotación y agregarlo al panel
                     const annotationParagraph = document.createElement("p");
                     annotationParagraph.textContent = note;
+                    
                     annotationPanel.appendChild(annotationParagraph);
 
                     // Verificar que el panel esté visible
