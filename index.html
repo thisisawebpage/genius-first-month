@@ -663,37 +663,43 @@
     }
 
 document.addEventListener("DOMContentLoaded", function () {
-        const annotationPanel = document.getElementById("annotation-panel");
-        const songList = document.getElementById("songList");
-        const audioPlayer = document.getElementById("audioPlayer");
-        const audioSource = document.getElementById("audioSource");
-        const lyricsContent = document.getElementById("lyrics-content");
-        const annotationBox = document.getElementById("annotation-box");
+    const annotationPanel = document.getElementById("annotation-panel");
+    const songList = document.getElementById("songList");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const audioSource = document.getElementById("audioSource");
+    const lyricsContent = document.getElementById("lyrics-content");
 
-        songs.forEach((song, index) => {
-            const li = document.createElement("li");
-            li.textContent = song.title;
-            li.onclick = function () {
-                audioSource.src = song.file;
-                audioPlayer.load();
-                audioPlayer.play();
-                lyricsContent.innerHTML = song.lyrics;
+    songs.forEach((song, index) => {
+        const li = document.createElement("li");
+        li.textContent = song.title;
+        li.onclick = function () {
+            audioSource.src = song.file;
+            audioPlayer.load();
+            audioPlayer.play();
+            lyricsContent.innerHTML = song.lyrics;
 
-         // Limpiar el panel de anotaciones antes de mostrar una nueva
+            // Limpiar el panel de anotaciones antes de mostrar una nueva
             annotationPanel.style.display = "none"; // Ocultar el panel
             annotationPanel.textContent = ""; // Limpiar el contenido
 
             // Agregar el event listener para las anotaciones
             const annotatedElements = lyricsContent.querySelectorAll(".annotated");
+            console.log(`Anotaciones encontradas: ${annotatedElements.length}`);
+
             annotatedElements.forEach(element => {
                 element.addEventListener("click", function (event) {
                     const note = this.getAttribute("data-note");
 
                     // Mostrar el panel de anotaciones con el nuevo contenido
+                    console.log(`Anotación clickeada: ${note}`);
                     annotationPanel.textContent = note;
                     annotationPanel.style.display = "block"; // Mostrar el panel
+
+                    // Asegurarse de que la posición del panel sea correcta
                     annotationPanel.style.left = event.pageX + 10 + "px";
                     annotationPanel.style.top = event.pageY + 10 + "px";
+
+                    console.log(`Panel de anotaciones visible: ${annotationPanel.style.display}`);
                 });
             });
         };
@@ -704,7 +710,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (event) {
         if (!event.target.classList.contains("annotated") && !event.target.closest("#annotation-panel")) {
             annotationPanel.style.display = "none"; // Ocultar el panel
+            console.log("Panel de anotaciones oculto");
         }
     });
 });
+
     </script>
