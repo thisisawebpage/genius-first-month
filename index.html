@@ -6,7 +6,7 @@
     <title>myforeverfourteen</title>
     <style>
                body {
-  display: flex;
+       display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
@@ -89,11 +89,10 @@
         font-size: 18px;
         width: 100%;
         max-width: 800px;
-        white-space: pre-wrap; /* Mantener saltos de línea */
-        overflow-y: auto; /* Desplazamiento vertical si la letra es larga */
-        max-height: 300px; /* Limitar la altura de la vista de letras */
+        white-space: pre-wrap;
+        overflow-y: auto;
+        max-height: 300px;
     }
-
       /* Estilo del panel de anotaciones */
 #annotation-panel {
     position: fixed;
@@ -139,7 +138,7 @@
             border-radius: 10px;
         }
 
-   /* Tercera página (video a la izquierda, letras centradas) */
+  /* Estilo para la tercera página */
     #lyricsView {
         display: flex;
         flex-direction: column;
@@ -177,15 +176,13 @@
     <!-- Aquí aparecerán las anotaciones -->
 </div>
 
-
-
-    <div class="container">
-        <!-- Primera página (solo portada, no botón) -->
+<div class="container">
+        <!-- Primera página: Solo la portada del CD -->
         <div id="cdCover" class="cd-cover active">
             <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
         </div>
 
-        <!-- Segunda página (portada, video, parte trasera y botón) -->
+        <!-- Segunda página: Portada, Video, parte trasera y botón -->
         <div id="cdView" class="cd-view">
             <img src="covernew.jpg" alt="CD Cover">
             <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
@@ -193,25 +190,26 @@
         </div>
         <button class="button" onclick="startListening()">start listening + lyrics!</button>
 
-        <!-- Tercera página (video a la izquierda, lista de canciones y letras centradas) -->
-        <div id="lyricsView" class="lyrics-view">
+        <!-- Tercera página: Video pequeño, letras centradas y reproductor -->
+        <div id="lyricsView" class="lyrics-view active">
             <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
             <ul class="song-list" id="songList"></ul>
+
             <audio id="audioPlayer" controls>
                 <source id="audioSource" src="" type="audio/mp3">
                 Your browser does not support the audio element.
             </audio>
+
             <div class="player">
                 <button onclick="prevSong()">⏮️</button>
                 <button onclick="togglePlay()">▶️/⏸️</button>
                 <button onclick="nextSong()">⏭️</button>
             </div>
+
             <p id="currentSong">Select a song</p>
             <div id="lyrics-content"></div>
         </div>
     </div>
-
-</body>
     <script>
         
     // Cargar las canciones y las letras
@@ -683,15 +681,33 @@
     ];
 
 
-    function showCDView() {
-        document.getElementById("cdCover").classList.remove("active");
-        document.getElementById("cdView").classList.add("active");
-    }
+   function showCDView() {
+            document.getElementById("cdCover").style.display = "none";
+            document.getElementById("cdView").style.display = "flex";
+            document.querySelector(".button").style.display = "inline-block";
+        }
 
-    function startListening() {
-        document.getElementById("cdView").classList.remove("active");
-        document.getElementById("lyricsView").classList.add("active");
-    }
+     function startListening() {
+            document.getElementById("cdView").style.display = "none";
+            document.getElementById("lyricsView").style.display = "flex";
+        }
+
+      function prevSong() {
+            // Lógica para la canción anterior
+        }
+
+        function nextSong() {
+            // Lógica para la siguiente canción
+        }
+
+        function togglePlay() {
+            var player = document.getElementById("audioPlayer");
+            if (player.paused) {
+                player.play();
+            } else {
+                player.pause();
+            }
+        }  
 
 document.addEventListener("DOMContentLoaded", function () {
     const annotationPanel = document.getElementById("annotation-panel");
