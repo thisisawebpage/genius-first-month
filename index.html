@@ -57,7 +57,7 @@
     .button {
         margin-top: 20px;
         padding: 15px 30px;
-        background-color: #ffcc00;
+        background-color: rgba(255, 182, 193, 0.9);
         border: none;
         cursor: pointer;
         font-size: 22px;
@@ -687,6 +687,7 @@
         } */ 
 
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("Página cargada, agregando canciones...");
     const annotationPanel = document.getElementById("annotation-panel");
     const songList = document.getElementById("songList");
     const audioPlayer = document.getElementById("audioPlayer");
@@ -694,6 +695,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const lyricsContent = document.getElementById("lyrics-content");
 
     songs.forEach((song, index) => {
+        console.log(`Agregando canción: ${song.title}`);
         const li = document.createElement("li");
         li.textContent = song.title;
         li.onclick = function () {
