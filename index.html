@@ -97,38 +97,61 @@
     </style>
 </head>
 <body>
-  <div class="container">
-        <div id="cdCover" class="cd-cover active">
-            <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
-        </div>
-        <div id="cdView" class="cd-view">
-            <img src="covernew.jpg" alt="CD Cover">
-            <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
-            <img src="backnew.jpg" alt="CD Back">
-        </div>
-    </div>
-        <div class="lyrics-container">
-            <div id="lyricsView" class="lyrics-view">
-                <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
-                <ul class="song-list" id="songList"></ul>
-                <div id="lyrics-content"></div>
-            </div>
-        </div>
-    </div>
-    <button class="button" onclick="startListening()">Start listening + lyrics!</button>
-    <audio id="audioPlayer" controls>
-        <source id="audioSource" src="" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-    <div class="player">
-        <button onclick="prevSong()">⏮️</button>
-        <button onclick="togglePlay()">▶️/⏸️</button>
-        <button onclick="nextSong()">⏭️</button>
-    </div>
-    <p id="currentSong">Select a song</p>
-</div>
 <div id="annotation-box"></div>
 
+
+
+    <div class="container">
+
+        <div id="cdCover" class="cd-cover active">
+
+            <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
+
+        </div>
+
+        <div id="cdView" class="cd-view">
+
+            <img src="covernew.jpg" alt="CD Cover">
+
+            <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
+
+            <img src="backnew.jpg" alt="CD Back">
+
+        </div>
+
+        <button class="button" onclick="startListening()">Start listening + lyrics!</button>
+
+        <div id="lyricsView" class="lyrics-view">
+
+            <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
+
+            <ul class="song-list" id="songList"></ul>
+
+            <audio id="audioPlayer" controls>
+
+                <source id="audioSource" src="" type="audio/mp3">
+
+                Your browser does not support the audio element.
+
+            </audio>
+
+            <div class="player">
+
+                <button onclick="prevSong()">⏮️</button>
+
+                <button onclick="togglePlay()">▶️/⏸️</button>
+
+                <button onclick="nextSong()">⏭️</button>
+
+            </div>
+
+            <p id="currentSong">Select a song</p>
+
+            <div id="lyrics-content"></div>
+
+        </div>
+
+    </div>
     <script>
     // Cargar las canciones y las letras
     const songs = [
