@@ -676,7 +676,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 audioPlayer.play();
                 lyricsContent.innerHTML = song.lyrics;
 
-                   // Limpiar el contenido del panel de anotaciones antes de agregar nuevas anotaciones
+                 
+            // Limpiar el contenido del panel de anotaciones antes de agregar nuevas anotaciones
             annotationPanel.innerHTML = "<p><strong>Haz clic en un fragmento resaltado para ver la anotación.</strong></p>";
 
             // Agregar el event listener para las anotaciones
@@ -685,13 +686,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.addEventListener("click", function (event) {
                     const note = this.getAttribute("data-note");
 
+                    // Verifica si el panel está oculto antes de mostrarlo
+                    if (annotationPanel.style.display === "none" || annotationPanel.style.display === "") {
+                        annotationPanel.style.display = "block"; // Mostrar el panel si está oculto
+                    }
+
                     // Crear un nuevo párrafo para la anotación y agregarlo al panel
                     const annotationParagraph = document.createElement("p");
                     annotationParagraph.textContent = note;
                     annotationPanel.appendChild(annotationParagraph);
-
-                    // Hacer visible el panel de anotaciones
-                    annotationPanel.style.display = "block";
                 });
             });
         };
