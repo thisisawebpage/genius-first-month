@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myforeverfourteen</title>
     <style>
-        body {
+               body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -76,17 +76,18 @@
             font-size: 18px;
             width: 100%;
             max-width: 800px;
-            white-space: pre-wrap; /* Mantener saltos de línea */
-            overflow-y: auto; /* Desplazamiento vertical si la letra es larga */
-            max-height: 300px; /* Limitar la altura de la vista de letras */
+            white-space: pre-wrap;
+            overflow-y: auto;
+            max-height: 300px;
         }
-       .annotated {
+        .annotated {
             background-color: #ffb6c1;
             cursor: pointer;
             padding: 2px 5px;
             border-radius: 5px;
             display: inline-block;
         }
+        /* Panel lateral fijo */
         #annotation-panel {
             position: fixed;
             right: 0;
@@ -99,6 +100,14 @@
             overflow-y: auto;
             box-shadow: -2px 0 5px rgba(0,0,0,0.2);
         }
+        #annotation-panel button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
         #audioPlayer {
             background-color: #ffb6c1;
             border-radius: 10px;
@@ -106,10 +115,14 @@
     </style>
 </head>
 <body>
-<div id="annotation-box"></div>
 
 
 
+<!-- Panel de anotaciones -->
+<div id="annotation-panel">
+    <button onclick="closeAnnotationPanel()">Close</button>
+    <p id="annotation-text"></p>
+</div>
     <div class="container">
 
         <div id="cdCover" class="cd-cover active">
@@ -657,23 +670,13 @@
                 audioPlayer.play();
                 lyricsContent.innerHTML = song.lyrics;
 
-                // Agregar el event listener para las anotaciones
-                const annotatedElements = lyricsContent.querySelectorAll(".annotated");
+               const annotatedElements = lyricsContent.querySelectorAll(".annotated");
                 annotatedElements.forEach(element => {
-                    element.addEventListener("click", function (event) {
+                    element.addEventListener("click", function () {
                         const note = this.getAttribute("data-note");
-                        annotationBox.textContent = note;
-                        annotationBox.style.display = "block";
-                        annotationBox.style.left = event.pageX + 10 + "px";
-                        annotationBox.style.top = event.pageY + 10 + "px";
+                        annotationText.textContent = note;
+                        annotationPanel.style.display = "block";
                     });
-                });
-
-                // Ocultar la anotación al hacer clic fuera
-                document.addEventListener("click", function(event){
-                    if (!event.target.classList.contains("annotated")){
-                        annotationBox.style.display="none";
-                    }
                 });
             };
             songList.appendChild(li);
