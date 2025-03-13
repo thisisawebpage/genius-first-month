@@ -156,31 +156,29 @@
 
         <div id="lyricsView" class="lyrics-view">
 
-            <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
+    <!-- Video del CD pequeño en la esquina superior izquierda -->
+    <div class="cd-view">
+        <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted style="width: 200px; height: auto; margin-top: 20px;"></video>
+    </div>
 
-            <ul class="song-list" id="songList"></ul>
+    <!-- Lista de canciones debajo del video -->
+    <div class="song-list-container" style="margin-top: 20px; text-align: left;">
+        <ul class="song-list" id="songList"></ul>
+    </div>
 
-            <audio id="audioPlayer" controls>
+    <!-- Reproductor debajo de la lista -->
+    <div class="player" style="margin-top: 20px;">
+        <button onclick="prevSong()">⏮️</button>
+        <button onclick="togglePlay()">▶️/⏸️</button>
+        <button onclick="nextSong()">⏭️</button>
+    </div>
 
-                <source id="audioSource" src="" type="audio/mp3">
+    <!-- Letras centradas en la página -->
+    <div id="lyrics-content" style="width: 70%; margin: 0 auto; font-size: 24px; line-height: 1.6; text-align: center; margin-top: 20px;">
+        <!-- Aquí se insertarán las letras de las canciones -->
+    </div>
 
-                Your browser does not support the audio element.
-
-            </audio>
-
-            <div class="player">
-
-                <button onclick="prevSong()">⏮️</button>
-
-                <button onclick="togglePlay()">▶️/⏸️</button>
-
-                <button onclick="nextSong()">⏭️</button>
-
-            </div>
-
-            <p id="currentSong">Select a song</p>
-
-            <div id="lyrics-content"></div>
+</div>
 
         </div>
 
