@@ -670,16 +670,20 @@
                 audioPlayer.play();
                 lyricsContent.innerHTML = song.lyrics;
 
-               const annotatedElements = lyricsContent.querySelectorAll(".annotated");
-                annotatedElements.forEach(element => {
-                    element.addEventListener("click", function () {
-                        const note = this.getAttribute("data-note");
-                        annotationText.textContent = note;
-                        annotationPanel.style.display = "block";
+              setTimeout(() => {
+                    const annotatedElements = lyricsContent.querySelectorAll(".annotated");
+                    annotatedElements.forEach(element => {
+                        element.addEventListener("click", function () {
+                            const note = this.getAttribute("data-note");
+                            annotationText.textContent = note;
+                            annotationPanel.style.display = "block";
+                        });
                     });
-                });
+                }, 100); // Pequeño retraso para asegurar que el DOM se actualice
             };
             songList.appendChild(li);
         });
     });
     </script>
+    </body>
+</html>
