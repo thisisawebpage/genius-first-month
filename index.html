@@ -154,7 +154,7 @@
 <div class="container">
         <!-- Página 1: Solo la portada del CD -->
         <div id="cdCover" class="cd-cover active">
-            <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
+            <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()"> 
         </div>
 
         <!-- Página 2: Portada, video, parte trasera y el botón -->
@@ -710,7 +710,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Anotaciones encontradas: ${annotatedElements.length}`);
 
             annotatedElements.forEach(element => {
-                element.addEventListener("click", function (event) {
+                element.addEventListener("click", function (event)) {
                     const note = this.getAttribute("data-note");
 
                     // Mostrar el panel de anotaciones con el nuevo contenido
@@ -723,7 +723,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     annotationPanel.style.right = '0';    // Posicionar siempre a la derecha de la página
 
                     console.log(`Panel de anotaciones visible: ${annotationPanel.style.display}`);
-                });
+                };
             });
         };
         songList.appendChild(li);
