@@ -88,17 +88,32 @@
             display: inline-block;
         }
         #annotation-panel {
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 300px;
-            height: 100%;
-            background-color: rgba(255, 182, 193, 0.9);
-            padding: 20px;
-            display: none;
-            overflow-y: auto;
-            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
-        }
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background-color: rgba(255, 182, 193, 0.9);
+    padding: 20px;
+    display: none;
+    overflow-y: auto;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    text-align: left;
+    overflow-y: scroll;
+    padding-right: 20px;
+}
+
+#annotation-panel p {
+    margin-bottom: 20px; /* Espaciado entre las anotaciones */
+}
+
+#annotation-panel p:first-child {
+    font-weight: bold;
+    margin-bottom: 30px; /* Espaciado adicional para el primer párrafo */
+}
         #audioPlayer {
             background-color: #ffb6c1;
             border-radius: 10px;
@@ -661,18 +676,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 audioPlayer.play();
                 lyricsContent.innerHTML = song.lyrics;
 
-                // Agregar el event listener para las anotaciones
-                 const annotatedElements = lyricsContent.querySelectorAll(".annotated");
-             annotatedElements.forEach(element => {
-                 element.addEventListener("click", function (event) {
-                     const note = this.getAttribute("data-note");
-                     annotationText.textContent = note;
+                   // Limpiar el contenido del panel de anotaciones antes de agregar nuevas anotaciones
+            annotationPanel.innerHTML = "<p><strong>Haz clic en un fragmento resaltado para ver la anotación.</strong></p>";
 
-                     // Hacer visible el panel de anotaciones
-                     annotationPanel.style.display = "block";
-                 });
-             });
-         };
+            // Agregar el event listener para las anotaciones
+            const annotatedElements = lyricsContent.querySelectorAll(".annotated");
+            annotatedElements.forEach(element => {
+                element.addEventListener("click", function (event) {
+                    const note = this.getAttribute("data-note");
+
+                    // Crear un nuevo párrafo para la anotación y agregarlo al panel
+                    const annotationParagraph = document.createElement("p");
+                    annotationParagraph.textContent = note;
+                    annotationPanel.appendChild(annotationParagraph);
+
+                    // Hacer visible el panel de anotaciones
+                    annotationPanel.style.display = "block";
+                });
+            });
+        };
             songList.appendChild(li);
         });
     });
