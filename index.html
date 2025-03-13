@@ -88,7 +88,8 @@
             display: inline-block;
         }
         #annotation-panel {
-    position: fixed;
+    position: absolute;
+    z-index: 9999;
     right: 0;
     top: 0;
     width: 300px;
@@ -680,7 +681,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Limpiar el panel de anotaciones antes de mostrar una nueva
             annotationPanel.style.display = "none"; // Ocultar el panel
-            annotationPanel.textContent = ""; // Limpiar el contenido
+            annotationPanel.innerHTML = ""; // Limpiar el contenido del panel
 
             // Agregar el event listener para las anotaciones
             const annotatedElements = lyricsContent.querySelectorAll(".annotated");
@@ -692,7 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Mostrar el panel de anotaciones con el nuevo contenido
                     console.log(`Anotación clickeada: ${note}`);
-                    annotationPanel.textContent = note;
+                    annotationPanel.innerHTML = note; // Usar innerHTML para soportar formato
                     annotationPanel.style.display = "block"; // Mostrar el panel
 
                     // Asegurarse de que la posición del panel sea correcta
