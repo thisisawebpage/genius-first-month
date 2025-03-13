@@ -654,56 +654,44 @@
         document.getElementById("lyricsView").classList.add("active");
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-    const songList = document.getElementById("songList");
-    const audioPlayer = document.getElementById("audioPlayer");
-    const audioSource = document.getElementById("audioSource");
-    const lyricsContent = document.getElementById("lyrics-content");
+  document.addEventListener("DOMContentLoaded", function () {
+        const songList = document.getElementById("songList");
+        const audioPlayer = document.getElementById("audioPlayer");
+        const audioSource = document.getElementById("audioSource");
+        const lyricsContent = document.getElementById("lyrics-content");
+        const annotationBox = document.getElementById("annotation-box");
 
-    document.addEventListener("DOMContentLoaded", function () {
-    const songList = document.getElementById("songList");
-    const audioPlayer = document.getElementById("audioPlayer");
-    const audioSource = document.getElementById("audioSource");
-    const lyricsContent = document.getElementById("lyrics-content");
-    const annotationPanel = document.getElementById("annotation-box");
+        songs.forEach((song, index) => {
+            const li = document.createElement("li");
+            li.textContent = song.title;
+            li.onclick = function () {
+                audioSource.src = song.file;
+                audioPlayer.load();
+                audioPlayer.play();
+                lyricsContent.innerHTML = song.lyrics;
 
-    songs.forEach((song, index) => {
-        const li = document.createElement("li");
-        li.textContent = song.title;
-        li.onclick = function () {
-            audioSource.src = song.file;
-            audioPlayer.load();
-            audioPlayer.play();
-            lyricsContent.innerHTML = song.lyrics;
-
-            console.log("Cargando letra de la canción:", song.lyrics); // Verifica si las letras están cargando
-
-            setTimeout(() => {
+                // Agregar el event listener para las anotaciones
                 const annotatedElements = lyricsContent.querySelectorAll(".annotated");
-                
-                console.log("Elementos anotados encontrados:", annotatedElements.length); // Verifica en la consola
-
                 annotatedElements.forEach(element => {
                     element.addEventListener("click", function (event) {
                         const note = this.getAttribute("data-note");
-                        annotationPanel.textContent = note;
-                        annotationPanel.style.display = "block";
-                        annotationPanel.style.left = event.pageX + 10 + "px";
-                        annotationPanel.style.top = event.pageY + 10 + "px";
+                        annotationBox.textContent = note;
+                        annotationBox.style.display = "block";
+                        annotationBox.style.left = event.pageX + 10 + "px";
+                        annotationBox.style.top = event.pageY + 10 + "px";
                     });
                 });
 
-                // Ocultar anotaciones al hacer clic fuera
+                // Ocultar la anotación al hacer clic fuera
                 document.addEventListener("click", function(event){
                     if (!event.target.classList.contains("annotated")){
-                        annotationPanel.style.display = "none";
+                        annotationBox.style.display="none";
                     }
                 });
-            }, 100);
-        };
-        songList.appendChild(li);
+            };
+            songList.appendChild(li);
         });
-    });
+   
     </script>
     </body>
 </html>
