@@ -6,80 +6,98 @@
     <title>myforeverfourteen</title>
     <style>
                body {
-             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: white;
-            color: black;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-            width: 90%;
-            max-width: 1200px;
-        }
-        .cd-cover, .cd-view, .lyrics-view {
-            display: none;
-        }
-        .active {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .cd-view {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .cd-view img, .cd-view video {
-            width: 30%;
-            height: auto;
-        }
-        img, video {
-            width: 700px;
-            height: auto;
-            cursor: pointer;
-        }
-        .button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background-color: #ffcc00;
-            border: none;
-            cursor: pointer;
-            font-size: 22px;
-        }
-        .player {
-            margin-top: 20px;
-        }
-        .song-list {
-            list-style: none;
-            padding: 0;
-            font-size: 20px;
-            margin-bottom: 30px;
-        }
-        .song-list li {
-            cursor: pointer;
-            padding: 8px;
-        }
-        .song-list li:hover {
-            text-decoration: underline;
-        }
-        .lyrics-view {
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
-            max-width: 1000px;
-        }
-        #lyrics-content {
-            margin-top: 20px;
-            font-size: 18px;
-            width: 100%;
-            max-width: 800px;
-            white-space: pre-wrap; /* Mantener saltos de línea */
-            overflow-y: auto; /* Desplazamiento vertical si la letra es larga */
-            max-height: 300px; /* Limitar la altura de la vista de letras */
-        }
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white;
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* Para la primera página, no mostrar el botón */
+#cdCover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#cdView, #lyricsView {
+  display: none; /* Se mostrarán solo cuando se active la vista correspondiente */
+}
+
+#cdCover img {
+  cursor: pointer;
+  width: 700px;
+  height: auto;
+}
+
+/* Segunda página, mostrando todo al centro */
+.cd-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cd-view img, .cd-view video {
+  width: 30%;
+  height: auto;
+}
+
+/* Botón para la segunda página */
+.button {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background-color: #ffcc00;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+/* Tercera página (video a la izquierda, letras centradas) */
+#lyricsView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#lyricsView video {
+  width: 300px;
+  height: auto;
+}
+
+.song-list {
+  list-style: none;
+  padding: 0;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.song-list li {
+  cursor: pointer;
+  padding: 8px;
+}
+
+.song-list li:hover {
+  text-decoration: underline;
+}
+
+#lyrics-content {
+  margin-top: 20px;
+  font-size: 18px;
+  width: 100%;
+  max-width: 800px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  max-height: 300px;
+}
       /* Estilo del panel de anotaciones */
 #annotation-panel {
     position: fixed;
@@ -136,55 +154,46 @@
 
     <div class="container">
 
-        <div id="cdCover" class="cd-cover active">
-
-            <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
-
-        </div>
-
-        <div id="cdView" class="cd-view">
-
-            <img src="covernew.jpg" alt="CD Cover">
-
-            <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
-
-            <img src="backnew.jpg" alt="CD Back">
-
-        </div>
-
-        <button class="button" onclick="startListening()">start listening + lyrics!</button>
-
-        <div id="lyricsView" class="lyrics-view">
-
-    <!-- Video del CD pequeño en la esquina superior izquierda -->
-    <div class="cd-view">
-        <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted style="width: 200px; height: auto; margin-top: 20px;"></video>
+    <!-- Primera página (solo portada) -->
+    <div id="cdCover" class="cd-cover active">
+      <img src="covernew.jpg" alt="CD Cover" onclick="showCDView()">
     </div>
 
-    <!-- Lista de canciones debajo del video -->
-    <div class="song-list-container" style="margin-top: 20px; text-align: left;">
-        <ul class="song-list" id="songList"></ul>
+    <!-- Segunda página (portada, video y parte trasera, con botón) -->
+    <div id="cdView" class="cd-view">
+      <img src="covernew.jpg" alt="CD Cover">
+      <video id="cdVideo" src="cd-rotating.mp4" autoplay loop muted></video>
+      <img src="backnew.jpg" alt="CD Back">
     </div>
+    <button class="button" onclick="startListening()">start listening + lyrics!</button>
 
-    <!-- Reproductor debajo de la lista -->
-    <div class="player" style="margin-top: 20px;">
+    <!-- Tercera página (video, lista de canciones, reproductor y letras) -->
+    <div id="lyricsView" class="lyrics-view">
+      <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
+
+      <!-- Lista de canciones -->
+      <ul class="song-list" id="songList"></ul>
+
+      <!-- Reproductor -->
+      <audio id="audioPlayer" controls>
+        <source id="audioSource" src="" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+
+      <!-- Botones de control -->
+      <div class="player">
         <button onclick="prevSong()">⏮️</button>
         <button onclick="togglePlay()">▶️/⏸️</button>
         <button onclick="nextSong()">⏭️</button>
+      </div>
+
+      <!-- Información de la canción y letras -->
+      <p id="currentSong">Select a song</p>
+      <div id="lyrics-content"></div>
     </div>
 
-    <!-- Letras centradas en la página -->
-    <div id="lyrics-content" style="width: 70%; margin: 0 auto; font-size: 24px; line-height: 1.6; text-align: center; margin-top: 20px;">
-        <!-- Aquí se insertarán las letras de las canciones -->
-    </div>
-
-</div>
-
-        </div>
-
-    </div>
-
-    </div>
+  </div>
+</body>
     <script>
         
     // Cargar las canciones y las letras
