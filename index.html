@@ -268,16 +268,20 @@ audio {
             border-radius: 10px;
         }
 @media screen and (max-width: 768px) {
-    .cd-cover img {
-        width: 80%; /* Ajusta para que no sea tan grande */
-        max-width: 300px; /* Evita que ocupe toda la pantalla */
+   .cd-cover img {
+        width: 90%; /* Un poco más grande que antes */
+        max-width: 400px; /* Límite máximo */
     }
     .cd-view {
         flex-direction: column; /* Cambia la alineación a vertical */
         align-items: center;
     }
 
-    .cd-view img, 
+    .cd-view img:first-child { /* Aplica solo a la primera imagen en la segunda página */
+        object-fit: contain; /* Asegura que se vea completa */
+        height: auto; /* Permite que la imagen mantenga su proporción */
+        width: 100%; /* Que ocupe todo el ancho disponible */
+        max-height: 300px;}
     .cd-view video {
         width: 90%; /* Que ocupen casi todo el ancho sin desbordarse */
         max-width: 400px;
