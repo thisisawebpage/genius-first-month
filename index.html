@@ -178,14 +178,14 @@
     width: 40%;  Para que no sea tan ancha y quede centrada */
     /*margin: 0 auto; Centrado horizontal */)
     white-space: pre-wrap !important;
-             text-align: center;
+    text-align: center;
     font-size: 18px;
-    width: 40%;
-    height: 500px; /* Ajusta este valor según necesites */
+    width: 60%; /* Ajusta el ancho según sea necesario */
+    max-height: 300px; /* Altura máxima */
     margin: 0 auto;
-    overflow-y: auto; /* Permite desplazarse si la letra es muy larga */
-    border: 1px solid #ccc; /* Opcional: para visualizar mejor el área */
-    padding: 10px; /* Para evitar que el texto toque los bordes */
+    overflow-y: auto; /* Permite desplazamiento vertical */
+    border: 1px solid #ccc; /* Visualización del área */
+    padding: 15px;
     
 }
 
@@ -806,7 +806,9 @@ document.addEventListener("DOMContentLoaded", function () {
             audioSource.src = song.file;
             audioPlayer.load();
             audioPlayer.play();
-            lyricsContent.innerHTML = song.lyrics;
+            
+            lyricsContent.textContent = song.lyrics;
+            lyricsContent.scrollTop = 0;
 
             // Limpiar el panel de anotaciones antes de mostrar una nueva
             annotationPanel.style.display = "none"; // Ocultar el panel
