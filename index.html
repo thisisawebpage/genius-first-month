@@ -66,13 +66,13 @@
 
     /* Página 3: Video pequeño, letras centradas y reproductor */
     #lyricsView {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    text-align: center;
-    display: none; /* Se esconde por defecto */
-    padding: 20px;
+      display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 320px;
 }
 
 /* Contenedor para organizar el video y la letra */
@@ -112,10 +112,10 @@
 .song-list {
     list-style: none;
     padding: 0;
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 20px;
-    text-align: left;
-    max-width: 200px;
+    text-align: center;
+    max-width: 180px;
 }
 
 .song-list li {
@@ -130,18 +130,12 @@
 
 /* Letra de la canción centrada */
 #lyrics-content {
-    font-size: 20px;
-    line-height: 1.6;
-    width: 100%;
-    max-width: 600px;
-    white-space: pre-wrap;
-    overflow-y: auto;
-    max-height: 300px;
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    position: relative; /* Para evitar que la anotación lo cubra */
-    z-index: 10;
+    max-height: none; /* Permite que se expanda verticalmente */
+    overflow-y: visible; /* Quita la barra de desplazamiento */
+    text-align: center; /* Centra el texto */
+    font-size: 22px;
+    width: 50%; /* Para que no sea tan ancha y quede centrada */
+    margin: 0 auto; /* Centrado horizontal */
 }
 
 /* Reproductor de audio bien ubicado */
@@ -151,10 +145,7 @@ audio {
 }
 
 .player {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    justify-content: center;
+    none;
 }
 
 #currentSong {
@@ -240,13 +231,8 @@ audio {
                 <source id="audioSource" src="" type="audio/mp3">
                 Your browser does not support the audio element.
             </audio>
-            <div class="player">
-                <button onclick="prevSong()">⏮️</button>
-                <button onclick="togglePlay()">▶️/⏸️</button>
-                <button onclick="nextSong()">⏭️</button>
-            </div>
 
-            <p id="currentSong">Select a song</p>
+            <p id="currentSong"> </p>
             <div id="lyrics-content"></div>
         </div>
 
