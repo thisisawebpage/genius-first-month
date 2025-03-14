@@ -807,7 +807,7 @@ document.addEventListener("DOMContentLoaded", function () {
             audioPlayer.load();
             audioPlayer.play();
             
-            lyricsContent.textContent = song.lyrics;
+            lyricsContent.innerHTML = song.lyrics;
             lyricsContent.scrollTop = 0;
 
             // Limpiar el panel de anotaciones antes de mostrar una nueva
