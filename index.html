@@ -277,15 +277,11 @@ audio {
         align-items: center;
     }
 
-    .cd-view img:first-child { /* Aplica solo a la primera imagen en la segunda página */
-        object-fit: contain; /* Asegura que se vea completa */
-        height: auto; /* Permite que la imagen mantenga su proporción */
-        width: 100%; /* Que ocupe todo el ancho disponible */
-        max-height: 300px;}
-    .cd-view video {
-        width: 90%; /* Que ocupen casi todo el ancho sin desbordarse */
+     .cd-view img, .cd-view video {
+        width: 90%; /* Que ocupen el mismo tamaño */
         max-width: 400px;
-        margin-bottom: 15px; /* Espaciado entre elementos */
+        height: auto;
+        margin-bottom: 15px; /* Espaciado uniforme */
     }
 
     .button {
@@ -314,13 +310,15 @@ audio {
         width: 90vw; /* Ajusta el tamaño para móviles */
         max-height: 60vh; /* Para que no cubra toda la pantalla */
     }
+ 
     #annotation-panel {
         width: 80vw;
-        max-width: 80%;
+        max-width: 300px;
         height: auto;
         max-height: 70vh;
         position: fixed;
-        top: 15%;
+        top: auto;
+        bottom:10vh;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(255, 182, 193, 0.95);
