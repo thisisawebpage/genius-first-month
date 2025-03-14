@@ -66,46 +66,95 @@
 
     /* Página 3: Video pequeño, letras centradas y reproductor */
     #lyricsView {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        text-align: center;
-        display: none; /* Se esconde por defecto */
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    display: none; /* Se esconde por defecto */
+    padding: 20px;
+}
 
-    #lyricsView video {
-        width: 300px; /* Video más pequeño */
-        height: auto;
-        margin-bottom: 20px;
-    }
+/* Contenedor para organizar el video y la letra */
+.lyrics-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 90%;
+    max-width: 1000px;
+}
 
-    .song-list {
-        list-style: none;
-        padding: 0;
-        font-size: 20px;
-        margin-bottom: 30px;
-        text-align: center;
-    }
-        .song-list li {
-    cursor: pointer; /* Cambia el cursor a una mano */
-    transition: all 0.3s ease; /* Transición suave para efectos */
+/* Video del CD girando (más pequeño y alineado a la izquierda) */
+#lyricsView video {
+    width: 200px; /* Ajusta el tamaño del video */
+    height: auto;
+}
+
+/* Contenedor del video para alinearlo a la izquierda */
+.video-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Contenedor de la letra y la lista de canciones */
+.lyrics-content-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Lista de canciones */
+.song-list {
+    list-style: none;
+    padding: 0;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.song-list li {
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .song-list li:hover {
-    text-decoration: underline; /* Subraya el texto al pasar por encima */
-    color: #FF1493; /* Cambia el color al pasar por encima (puedes ajustar el color) */
+    text-decoration: underline;
+    color: #FF1493;
 }
 
-    #lyrics-content {
-        font-size: 18px;
-        width: 100%;
-        max-width: 800px;
-        white-space: pre-wrap;
-        overflow-y: auto;
-        max-height: 300px;
-        margin-top: 20px;
-    }
+/* Letra de la canción centrada */
+#lyrics-content {
+    font-size: 20px;
+    line-height: 1.6;
+    width: 100%;
+    max-width: 600px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    max-height: 300px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Reproductor de audio bien ubicado */
+audio {
+    margin-top: 10px;
+}
+
+.player {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#currentSong {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+}
       /* Estilo del panel de anotaciones */
 #annotation-panel {
     position: fixed;
@@ -176,6 +225,7 @@
 
         <!-- Página 3: Video pequeño, letras centradas, y reproductor -->
         <div id="lyricsView" class="lyrics-view">
+             <div class="video-container"
             <video id="lyricsVideo" src="cd-rotating.mp4" autoplay loop muted></video>
             <ul class="song-list" id="songList"></ul>
 
