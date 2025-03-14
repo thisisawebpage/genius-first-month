@@ -361,21 +361,22 @@ audio {
         top: 0;
         background-color: white;
         z-index: 10;
-        left: 50%; /* Centra horizontalmente */
-        transform: translateX(-50%);
+        width: 100%;
     }
 
     .song-list {
         position: sticky;
         top: 100px;
         z-index: 10;
-        left: 50%; /* Centra horizontalmente */
-        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
     }
 
     .lyrics-content-container {
         width: 90vw; /* Ajusta el tamaño para móviles */
         max-height: 60vh; /* Para que no cubra toda la pantalla */
+        overflow-y: auto;
+        padding-bottom: 20px;
     }
 
     /* Ajustar anotaciones */
@@ -387,6 +388,11 @@ audio {
         top: 50%; /* Lo centra verticalmente */
         left: 50%; /* Lo centra horizontalmente */
         transform: translate(-50%, -50%);
+        position: fixed;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 }
 
