@@ -78,17 +78,19 @@
 /* Contenedor para organizar el video y la letra */
 .lyrics-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 50px;
+    gap: 40px;
     width: 90%;
     max-width: 1000px;
+    margin-bottom: 20px;
 }
 
 /* Video del CD girando (más pequeño y alineado a la izquierda) */
 #lyricsView video {
-    width: 200px; /* Ajusta el tamaño del video */
+    width: 180px;
     height: auto;
+    display: block;
 }
 
 /* Contenedor del video para alinearlo a la izquierda */
@@ -110,9 +112,10 @@
 .song-list {
     list-style: none;
     padding: 0;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: left;
+    max-width: 200px;
 }
 
 .song-list li {
@@ -137,21 +140,25 @@
     text-align: center;
     padding: 10px;
     border-radius: 10px;
+    position: relative; /* Para evitar que la anotación lo cubra */
+    z-index: 10;
 }
 
 /* Reproductor de audio bien ubicado */
 audio {
-    margin-top: 10px;
+    margin-top: 20px;
+    width: 300px;
 }
 
 .player {
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    justify-content: center;
 }
 
 #currentSong {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     margin-top: 10px;
 }
