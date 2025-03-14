@@ -72,6 +72,7 @@
             width: 80%;
             margin: auto;
             padding-right: 320px;
+        position:relative;
      /* display: none;
     justify-content: center;
     align-items: flex-start;
@@ -154,7 +155,7 @@
             font-size: 16px;
             text-align: center;
             max-width: 200px;
-            position: sticky;
+            position: fixed;
             top: 200px;
             background-color: white;
             padding: 10px;
@@ -180,15 +181,14 @@
     width: 40%;  Para que no sea tan ancha y quede centrada */
     /*margin: 0 auto; Centrado horizontal */)
     white-space: pre-line !important; /* Asegura que se respeten los saltos de línea */
-    text-align: left; /* Para que parezca más natural */
+    text-align: center; /* Para que parezca más natural */
     font-size: 18px;
     width: 50%; /* Ajusta el ancho según sea necesario */
-    max-height: 400px; /* Más espacio */
-    margin: 20px auto;
-    overflow-y: auto; /* Permite desplazamiento vertical */
-    border: 1px solid #ccc;
+     max-height: none;
+    margin-top: 50px; /* Subimos la letra */
     padding: 15px;
     line-height: 1.6;
+    overflow-y: visible;
     
 }
 
