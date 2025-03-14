@@ -6,7 +6,7 @@
     <title>myforeverfourteen</title>
     <style>
                body {
-       display: flex;
+       display: block;
         justify-content: center;
         align-items: flex-start;
         height: 100vh;
@@ -14,7 +14,7 @@
         color: black;
         font-family: Arial, sans-serif;
         margin:0;
-                     padding-top: 20px;
+                     padding: 0;
     }
 
     .container {
@@ -135,10 +135,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;*/
-     position: fixed;
-    top: 1%;
+     position: absolute;
+    top: 5vh;
     left: 50%;
-    transform: translate(-50%,-1%);
+    transform: translateX(-50%);
     width: 50vw;
     max-height: 85vh;
     overflow-y: auto;
