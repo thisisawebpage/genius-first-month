@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
     <title>myforeverfourteen</title>
     <style>
                body {
@@ -266,7 +267,24 @@ audio {
             background-color: #ffb6c1;
             border-radius: 10px;
         }
+@media screen and (max-width: 768px) {
+    .lyrics-content-container {
+        width: 90vw;  /* Más ancho en móviles */
+        top: 10vh;  /* Ajusta la posición para que no quede abajo */
+        max-height: 60vh;  /* Reduce la altura para que no desborde */
+    }
 
+    .video-container {
+        width: 100%;  /* Que ocupe todo el ancho */
+        text-align: center;  /* Centrar el video */
+    }
+
+    .song-list {
+        position: static;  /* Evita problemas con sticky en móviles */
+        width: 100%;
+        text-align: center;
+    }
+}
   
 </style>      
 </head>
