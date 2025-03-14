@@ -121,9 +121,14 @@
     display: flex;
     justify-content: flex-start;*/
     position: fixed;
-            top: 0;
+            /*top: 0;
             background-color: white;
-            padding: 10px 0;
+            padding: 10px 0;*/
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 10px;
+    z-index: 100;
 }
 
 /* Contenedor de la letra y la lista de canciones */
@@ -148,7 +153,7 @@
     margin-bottom: 20px;
     text-align: center;
     max-width: 180px;*/
-       list-style: none;
+     /*  list-style: none;
             padding: 0;
             font-size: 16px;
             text-align: center;
@@ -156,7 +161,14 @@
             position: sticky;
             top: 200px;
             background-color: white;
-            padding: 10px;
+            padding: 10px;*/
+       position: fixed;
+    top: 150px;
+    left: 10px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    max-width: 200px;
 }
 
 .song-list li {
@@ -177,15 +189,16 @@
     /*font-size: 18px;
     width: 40%;  Para que no sea tan ancha y quede centrada */
     /*margin: 0 auto; Centrado horizontal */)
-    white-space: pre-wrap !important;
-    text-align: center;
+    white-space: pre-line !important; /* Asegura que se respeten los saltos de línea */
+    text-align: left; /* Para que parezca más natural */
     font-size: 18px;
-    width: 60%; /* Ajusta el ancho según sea necesario */
-    max-height: 300px; /* Altura máxima */
-    margin: 0 auto;
+    width: 50%; /* Ajusta el ancho según sea necesario */
+    max-height: 400px; /* Más espacio */
+    margin: 20px auto;
     overflow-y: auto; /* Permite desplazamiento vertical */
-    border: 1px solid #ccc; /* Visualización del área */
+    border: 1px solid #ccc;
     padding: 15px;
+    line-height: 1.6;
     
 }
 
