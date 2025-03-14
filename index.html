@@ -268,21 +268,47 @@ audio {
             border-radius: 10px;
         }
 @media screen and (max-width: 768px) {
-    .lyrics-content-container {
-        width: 90vw;  /* Más ancho en móviles */
-        top: 10vh;  /* Ajusta la posición para que no quede abajo */
-        max-height: 60vh;  /* Reduce la altura para que no desborde */
+    .cd-cover img {
+        width: 80%; /* Ajusta para que no sea tan grande */
+        max-width: 300px; /* Evita que ocupe toda la pantalla */
+    }
+    .cd-view {
+        flex-direction: column; /* Cambia la alineación a vertical */
+        align-items: center;
+    }
+
+    .cd-view img, 
+    .cd-view video {
+        width: 90%; /* Que ocupen casi todo el ancho sin desbordarse */
+        max-width: 400px;
+        margin-bottom: 15px; /* Espaciado entre elementos */
+    }
+
+    .button {
+        margin-top: 20px; /* Mueve el botón abajo de todo */
+    }
+
+     .lyrics-container {
+        flex-direction: column; /* Acomoda todo en columna */
+        align-items: center;
     }
 
     .video-container {
-        width: 100%;  /* Que ocupe todo el ancho */
-        text-align: center;  /* Centrar el video */
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 10;
     }
 
     .song-list {
-        position: static;  /* Evita problemas con sticky en móviles */
-        width: 100%;
-        text-align: center;
+        position: sticky;
+        top: 100px;
+        z-index: 10;
+    }
+
+    .lyrics-content-container {
+        width: 90vw; /* Ajusta el tamaño para móviles */
+        max-height: 60vh; /* Para que no cubra toda la pantalla */
     }
 }
   
